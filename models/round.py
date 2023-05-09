@@ -1,47 +1,51 @@
 import datetime
 import random
-from match import Match
 from tournament import Tournament
 from player import Player
-
-
+# a mettre dans tournament ?
 class Round:
-    
-    def __init__(self,name, matches, round_date_hour_start, round_date_hour_end, round_players = []):
-        
+    def __init__(self, name, matches={}, start_time=None, end_time=None,score={}):
         self.name = name
-        self.matches= matches
-        self.round_date_hour_start = round_date_hour_start
-        self.round_date_hour_end = round_date_hour_end 
-        self.round_players = round_players
-    
+        self.matches = matches or []
+        self.start_time = start_time
+        self.end_time = end_time
+        self.score = score
         
-    @property
-    def start_time(self):
+    def start(self):
         now = datetime.datetime.now()
-        return now.strftime("%Y-%m-%d %H:%M:%S")
+        self.start_time = now.strftime("%Y-%m-%d %H:%M:%S")
 
-    @property
-    def end_time(self):
+    def end(self):
         now = datetime.datetime.now()
-        return now.strftime("%Y-%m-%d %H:%M:%S")
+        self.end_time = now.strftime("%Y-%m-%d %H:%M:%S")
         
-        
-    def first_round_mix(self, round_player_list):
-        Tournament.players = random.shuffle(Tournament.players)
-    
-    def player_by_points_mix(self, round_player_list):
-        Tournament.players = Tournament.players.sort(key=lambda x: Player.points)
-        
-    def generate_match(self):
-        for i in range(0, len(players)-1, 2):
-            matches.append((players[i], players[i+1]))
 
-   
-       
-       
- 
         
+    
+tournament1 = Tournament('chess kings', 'Orleans')
+
+doudou = Player('Doudou', 'Ophélia', '1995-05','45')
+
+boubou = Player('Boubou', 'Alikea','2007-03','nahsheitan1')
+
+rico = Player('Rico', 'El famoso','1972-012','37')
+
+changaya = Player('Changaya', 'fabien','1989-09','93')
+
+tournament1.players =[doudou, changaya, boubou, rico]
+
+tournament1.description = 'First try'
+
+round1 = Round('round1')
+
+round1.start()
+
+print(tournament1.players)
+
+tournament1.randomize_players()
+
+print(tournament1.players)
+
 
 
         
