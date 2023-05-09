@@ -27,6 +27,7 @@ class Tournament:
     def randomize_players(self,players):
         players = random.shuffle(players)
         
+        
     def sort_by_points(self, players):
         players.sort(key=lambda x: x.points, reverse=True)
         

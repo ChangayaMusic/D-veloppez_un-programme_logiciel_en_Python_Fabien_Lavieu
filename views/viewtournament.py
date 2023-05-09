@@ -6,20 +6,18 @@ def class ViewTournament:
         nb_rounds = input("How much round (default : 4): ")
         description = input("Enter description: ")
     
-    def tournament_report(self, tournament_name, place, nb_rounds=4, players = {},
-                description = '', round_list = [],):
+    def tournament_report(self):
         tournament_name = input("Enter tournament's name: ")
-        print(Tournament(tournament_name).__dict__)
+        
+        
+        #controller#
         
     def all_players(self):
         
         tournament_name = input("Enter tournament's name: ")
         print(Tournament(tournament_name.players).__dict__)
         
-    def round_matches(self):
-        round_name = input("Enter round's name: ")
-        print(Round(round_name.matches).__dict__)
-        
+    
         
     
     

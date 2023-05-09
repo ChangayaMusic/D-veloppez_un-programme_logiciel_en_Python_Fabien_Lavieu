@@ -1,4 +1,5 @@
-
+import re
+from models/tournament import Tournament
 
 def class ViewPlayer:
     
@@ -9,16 +10,30 @@ def class ViewPlayer:
         last_name_input = input("Please enter your last name: ")
         surname_input = input("Please enter your surname: ")
         birth_date_input = input("Please enter your birth date (YYYY-MM-DD): ")
-        if birth_date_input 
-        identification_input = input("Please enter your identification: ")
         
-    
+        while identification_input is None:
+            
+            identification_input = input("Please enter your identification: ")
+            
+            regex = r"^[a-zA-Z]{2}\d{4}$"
+            
+            if re.match(regex, identification_input):
+                continue
+            else:
+                print("This is not a correct ID.")
+                identification_input = None
+            
+        
     def show_player(self):
         
         identification_input = input("Please enter the player's identification: ")
         #look for player with controllers
-        player_to_show = #Plazer(#)
-        print(player_to_show.__dict__)
+       
+        for k, v in Tournament().players.items():
+            if v == identification_input:
+                print(k) 
+            else : "Indentification number is not found"
+                
         
     def show_all_players(self, all_players = {}):
         
