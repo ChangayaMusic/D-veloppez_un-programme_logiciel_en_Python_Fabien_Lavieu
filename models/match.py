@@ -1,16 +1,14 @@
-import random
 import uuid
 
+
 class Match:
-  
     def __init__(self,player_1, player_2, player_1_score, player_2_score,match_id = uuid.uuid4()):
-        
         self.player_1 = player_1
         self.player_2 = player_2
         self.player_1_score = player_1_score
         self.player_2_score = player_2_score
         self.match_id = match_id
-        
+
      #match sould be a tulpe
      
     @property

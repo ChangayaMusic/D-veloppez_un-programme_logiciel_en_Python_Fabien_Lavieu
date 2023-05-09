@@ -13,7 +13,8 @@ class Player:
         self.opponents = opponents
         self.tournament_score = tournament_score
     
-
+    def __repr__(self) -> str:
+        return f"{ self.last_name } { self.surname } - { self.identification }"
 
 
     

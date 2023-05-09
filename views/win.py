@@ -1,6 +1,4 @@
-from enum import IntEnum
-
-
+from models.match import Match
 
 if __name__ == "__main__":
     # We are in controller Match
