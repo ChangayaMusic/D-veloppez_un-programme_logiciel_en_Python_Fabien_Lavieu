@@ -1,25 +1,45 @@
 from models.tournament import Tournament
 from models.round import Round
 
-class ViewTournament:    
-    def create_tournament(self):
+class AddTournamentView:    
+        
+    def input_tournament_name(self, tournament_name):
         tournament_name = input("Enter tournament's name: ")
+        return tournament_name
+    
+    def input_tournament_place(self, place):
         place = input("Enter tournament's place: ")
-        nb_rounds = input("How much round (default : 4): ")
+        return place
+        
+    def input_tournament_rounds(self, nb_rounds=4):
+        
+        nb_rounds = input("How much rounds (default : 4): ")
+        return nb_rounds
+    
+    def input_tournament_descriptions(self, description):   
+        
         description = input("Enter description: ")
+        return description
+    
+    def print_tournament_added(self, tournament):
+        print(f"Tournament added: { tournament }")
+        
+    def display_nb_rounds_errors(self):
+        print("Invalid nb_rounds")
+    
+    def empty_tournament_description(self,response):
+        reponse = input("Are you sure you want to leave it empty? (yes/no) ")
+        return reponse
+        
+        if reponse.lower() == "yes":
+            print("You chose yes.")
+        else reponse.lower() == "no":
+      
+        
+        
+    
 
-    def tournament_report(self, tournament: Tournament):
-        print(tournament.players)
-        tournament_name = input("Enter tournament's name: ")
-        print(Tournament(tournament_name).__dict__)
-        
-    def all_players(self):
-        tournament_name = input("Enter tournament's name: ")
-        print(Tournament(tournament_name.players).__dict__)
-        
-    def round_matches(self):
-        round_name = input("Enter round's name: ")
-        print(Round(round_name.matches).__dict__)
+    
         
         
     
