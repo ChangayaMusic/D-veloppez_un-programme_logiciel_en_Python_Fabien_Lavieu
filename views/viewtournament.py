@@ -34,6 +34,12 @@ class AddTournamentView:
         if reponse.lower() == "yes":
             print("You chose yes.")
         else reponse.lower() == "no":
+    
+    def bd_validation(self, tournament):
+        print(f"Tournament added to DataBase: { tournament }")
+        
+    def already_in_db(self,tournament):
+        print(f"Tournament already in DataBase: { tournament }")
       
         
         

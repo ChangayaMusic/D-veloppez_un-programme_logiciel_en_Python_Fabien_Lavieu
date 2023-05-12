@@ -1,7 +1,7 @@
 import datetime
 import random
-# from player import Player
-# from round import Round
+from tinydb import TinyDB, Query
+import os
 
 class Tournament:
     def __init__(self, tournament_name, place, nb_rounds=4, players = [],
@@ -14,7 +14,6 @@ class Tournament:
         self.description = description
         self.round_list = round_list
     
-   
     @property
     def start_time(self):
         now = datetime.datetime.now()
@@ -31,21 +30,15 @@ class Tournament:
     def sort_by_points(self, players):
         players.sort(key=lambda x: x.points, reverse=True)
 
+    def check_if_in_database(self, tournament):
+        db = TinyDB('tournaments.json')
+        TournamentTable = Query()
+        result = db.search(TournamentTable.tournament_name == tournament.tournament_name)
+        return result
+    def add_to_database(self,tournament):
+        
+        db = TinyDB('tournaments.json')
+        db.insert(tournament.__dict__)
+            
+        
 
-# if __name__ == '__main__':
-#     tournament1 = Tournament('chess kings', 'Orleans')
-
-#     doudou = Player('Doudou', 'Ophélia', '1995-05', '45')
-#     boubou = Player('Boubou', 'Alikea', '2007-03', 'nahsheitan1')
-#     rico = Player('Rico', 'El famoso', '1972-012','37')
-#     changaya = Player('Changaya', 'Fabien', '1989-09', '93')
-
-#     tournament1.players = [doudou, changaya, boubou, rico]
-#     tournament1.description = 'First try'
-
-#     round1 = Round('round1')
-#     round1.start()
-    
-#     print(tournament1.players)
-#     tournament1.randomize_players()
-#     print(tournament1.players)

@@ -24,6 +24,7 @@ class Player:
     
     def add_player_to_db(self, player):
         
+        
         db = TinyDB('players.json')
         db.insert(player.__dict__)
             

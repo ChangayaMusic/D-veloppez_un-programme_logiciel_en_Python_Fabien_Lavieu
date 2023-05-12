@@ -14,6 +14,17 @@ class AddPlayerController:
         else:
             self.view.display_identification_error()
             return None  # return None if identification is invalid
+        
+    def add_player_to_db(self, player):
+            
+        Player.check_if_in_db(player)
+        if result:
+            self.view.already_in_db(player)
+        else:
+            Player.add_player_to_db(player)
+            self.view.bd_validation
+
+        self.view.print_player_added(player)
 
     def add_new_player(self):
         identification = None
@@ -38,10 +49,11 @@ class AddPlayerController:
         player = Player(last_name=last_name, first_name=first_name, birth_date=birth_date, identification=identification)
         return player
         Player.check_if_in_db(player)
-        if result:
-            self.view.already_in_db(player)
-        else:
+        if not result:
             Player.add_player_to_db(player)
-            self.view.bd_validation
-
+        else:
+            self.view.already_in_db
         self.view.print_player_added(player)
+      
+
+        

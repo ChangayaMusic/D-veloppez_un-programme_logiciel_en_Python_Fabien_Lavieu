@@ -1,5 +1,6 @@
 from views.viewtournament import AddTournamentView
 from models.tournament import Tournament
+from isdigit import isdigit
 class AddTournamentController:
 
     def __init__(self):
@@ -22,17 +23,24 @@ class AddTournamentController:
                    
           
     def add_new_tournament(self):
-            tournament_name = None
-            place = None
-            nb_rounds = 4
-            description = None
-            while not tournament_name:
-                tournament_name = self.view.input_tournament_name()
-            while not place:
-                place = self.view.input_tournament_place()
-            description = self.view.input_tournament_description()
-            description = self.validate_descriptions
-          
-            tournament = Tournament(tournament_name=tournament_name, place=place, description = description)
-            self.view.print_tournament_added(tournament)
-            return tournament
+        tournament_name = None
+        place = None
+        nb_rounds = 4
+        description = None
+        while not tournament_name:
+            tournament_name = self.view.input_tournament_name()
+        while not place:
+            place = self.view.input_tournament_place()
+        description = self.view.input_tournament_description()
+        description = self.validate_descriptions
+        
+        tournament = Tournament(tournament_name=tournament_name, place=place, description = description)
+        
+        return tournament
+        Tournament.check_if_in_database(tournament)
+        if not result:
+            Tournament.add_to_database(tournament)
+        else:
+            self.view.already_in_db
+        self.view.print_tournament_added(tournament)
+        
