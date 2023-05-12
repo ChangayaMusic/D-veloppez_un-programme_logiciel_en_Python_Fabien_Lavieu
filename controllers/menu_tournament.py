@@ -1,6 +1,8 @@
 from views.viewtournament import AddTournamentView
 from models.tournament import Tournament
 from isdigit import isdigit
+from tinydb import TinyDB, Query
+
 class AddTournamentController:
 
     def __init__(self):
@@ -37,10 +39,32 @@ class AddTournamentController:
         tournament = Tournament(tournament_name=tournament_name, place=place, description = description)
         
         return tournament
+    
         Tournament.check_if_in_database(tournament)
         if not result:
             Tournament.add_to_database(tournament)
         else:
             self.view.already_in_db
         self.view.print_tournament_added(tournament)
+
+class LoadTournamentController:
+    
+    def __init__(self):
+        self.view = AddTournamentView()
+        
+            
+    def load_tournament(self, tournament, tournament_name):
+        
+        db = TinyDB('tournaments.json')
+        Tournament.check_if_in_database(tournament)
+        if result:
+            tournament_data = result[0]
+            tournament = Tournament(**tournament_data)
+            self.view.load_tournament(tournament)
+        else:
+             self.view.tournament_is_not_in_db(tournament)
+    
+        
+        
+        
         

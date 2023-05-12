@@ -35,10 +35,17 @@ class Tournament:
         TournamentTable = Query()
         result = db.search(TournamentTable.tournament_name == tournament.tournament_name)
         return result
+    
     def add_to_database(self,tournament):
         
         db = TinyDB('tournaments.json')
         db.insert(tournament.__dict__)
+        
+    
+        
+    
+        
+        
             
         
 

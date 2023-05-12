@@ -40,8 +40,12 @@ class AddTournamentView:
         
     def already_in_db(self,tournament):
         print(f"Tournament already in DataBase: { tournament }")
-      
-        
+    
+    def tournament_is_not_in_db(self,tournament):
+        print(f"Tournament's name does not exist in DataBase: { tournament }")
+    
+    def tournament_loaded(self,tournament)
+        print(f"Tournament loaded from DataBase: { tournament }")
         
     
 
