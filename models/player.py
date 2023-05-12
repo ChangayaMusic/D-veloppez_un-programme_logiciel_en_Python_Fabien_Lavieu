@@ -1,4 +1,4 @@
-
+from tinydb import TinyDB, Query
 class Player:
    
     
@@ -15,6 +15,21 @@ class Player:
     
     def __repr__(self) -> str:
         return f"{ self.last_name } { self.surname } - { self.identification }"
+    
+    def check_if_in_db(self, player):
+        db = TinyDB('players.json')
+        PlayerTable = Query()
+        result = db.search(PlayerTable.identification == player.identification)
+        return result
+    
+    def add_player_to_db(self, player):
+        
+        db = TinyDB('players.json')
+        db.insert(player.__dict__)
+            
+       
 
+    
+        
 
     

@@ -34,6 +34,14 @@ class AddPlayerController:
                 birth_date = datetime.strptime(birth_date, '%Y-%m-%d').date()
             except ValueError:
                 self.view.display_birth_date_error()
+                
         player = Player(last_name=last_name, first_name=first_name, birth_date=birth_date, identification=identification)
-        self.view.print_player_added(player)
         return player
+        Player.check_if_in_db(player)
+        if result:
+            self.view.already_in_db(player)
+        else:
+            Player.add_player_to_db(player)
+            self.view.bd_validation
+
+        self.view.print_player_added(player)

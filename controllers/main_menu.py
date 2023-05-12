@@ -1,6 +1,6 @@
 from models.tournament import Tournament
 from controllers.menu_player import AddPlayerController
-from controllers.menu_tournament
+from controllers.menu_tournament import AddTournamentController
 
 from views.menu import MainMenuView
 from enum import IntEnum
