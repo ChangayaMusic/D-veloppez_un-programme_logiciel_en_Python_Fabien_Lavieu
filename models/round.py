@@ -25,7 +25,7 @@ class Round:
         now = datetime.datetime.now()
         self.end_time = now.strftime("%Y-%m-%d %H:%M:%S")
         
-    def create_round(self,round_instance,matches):
+    def create_first_round(self,round_instance,matches):
         round = Round()
         if round_instance is None:
             round_instance = 1
@@ -40,7 +40,11 @@ class Round:
             round.start()
             
         else:
-            sorted_players = sorted(players, key=lambda player: player.points, reverse=True)
+            
+            
+    def create_round(self,round_instance,matches):
+        
+            sorted_players = sorted(Tournament.players, key=lambda player: player.points, reverse=True)
             grouped_players = []
             current_group = [sorted_players[0]]
             for i in range(1, len(sorted_players)):
@@ -59,7 +63,7 @@ class Round:
             for i in range(0, len(sorted_players), 2):
                 pair = (sorted_players[i], sorted_players[i + 1]) if i + 1 < len(sorted_players) else (sorted_players[i], None)
                 self.matches.append(pair)
-                
+             
             round.name = f"round {round_instance}"
             Tournament.round_list.append(round)
             round.round_instance + 1

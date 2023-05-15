@@ -47,13 +47,11 @@ class AddTournamentController:
         else:
             self.view.already_in_db
         
-
 class LoadTournamentController:
     
     def __init__(self):
         self.view = AddTournamentView()
         
-            
     def load_tournament(self, tournament, tournament_name):
         
         db = TinyDB('tournaments.json')
