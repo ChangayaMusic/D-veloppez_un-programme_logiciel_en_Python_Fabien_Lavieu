@@ -9,7 +9,7 @@ class AddTournamentController:
         self.view = AddTournamentView() 
         
     def validate_nb_rounds(self, nb_rounds):
-        if nb_rounds isdigit():
+        if nb_rounds is nb_rounds.isdigit():
             return nb_rounds
         else:
             self.view.display_nb_rounds_errors()
@@ -43,9 +43,10 @@ class AddTournamentController:
         Tournament.check_if_in_database(tournament)
         if not result:
             Tournament.add_to_database(tournament)
+            self.view.print_tournament_added(tournament)
         else:
             self.view.already_in_db
-        self.view.print_tournament_added(tournament)
+        
 
 class LoadTournamentController:
     
@@ -63,6 +64,10 @@ class LoadTournamentController:
             self.view.load_tournament(tournament)
         else:
              self.view.tournament_is_not_in_db(tournament)
+    
+    
+        
+
     
         
         

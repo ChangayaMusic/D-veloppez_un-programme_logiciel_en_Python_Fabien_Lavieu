@@ -7,3 +7,5 @@ class LoadTournamentController :
         
     def choose_tournament(self, tournament_name):
         tournament_name = self.view.input_tournament()
+        
+

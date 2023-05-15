@@ -44,13 +44,20 @@ class AddTournamentView:
     def tournament_is_not_in_db(self,tournament):
         print(f"Tournament's name does not exist in DataBase: { tournament }")
     
-    def tournament_loaded(self,tournament)
+    def tournament_loaded(self,tournament):
         print(f"Tournament loaded from DataBase: { tournament }")
         
     
-
+class LoadTournamentView:
     
+    def input_tournament(self,tournament_name):
+        return input("Enter the name of the tournament you want to load")
+   
+    def tournaments_names(self,tournament):
+        for name in tournament_names:
+            print(name)
         
+    
         
     
     

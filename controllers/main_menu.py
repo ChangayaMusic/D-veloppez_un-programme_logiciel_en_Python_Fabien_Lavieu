@@ -9,14 +9,15 @@ class MainMenuOptions(IntEnum):
     UNASSIGNED = -1
     NEW_PLAYER = 0
     NEW_TOURNAMENT = 1
-    LOAD_TOURNAMENT = 2
-    SHOW_REPORTS = 3
-    EXIT = 4
+    NEW_ROUND = 2
+    LOAD_TOURNAMENT = 3
+    SHOW_REPORTS = 4
+    EXIT = 5
 
 
 class MainMenuController:
     def __init__(self) -> None:
-        self.tournament = Tournament("Test Tournament", "Paris")
+        self.tournament = Tournament()
         self.add_player_controller = None
         self.view = MainMenuView()
         self.view.display_welcome()
