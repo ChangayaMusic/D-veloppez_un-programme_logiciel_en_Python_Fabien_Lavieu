@@ -23,11 +23,11 @@ class AddPlayerController:
             return None
     
     def add_player_to_db(self, player):
-        indb = player.check_if_in_db()
-        if indb:
+        result = Player.check_if_in_db(player)
+        if result:
             self.view.already_in_db(player)
         else:
-            player.add_player_to_db()
+            Player.add_player_to_db(player)
             self.view.bd_validation(player)
 
         self.view.print_player_added(player)
@@ -53,7 +53,17 @@ class AddPlayerController:
             except ValueError:
                 self.view.display_birth_date_error()
                 
-        player = Player(last_name=last_name, first_name=first_name, birth_date=birth_date, identification=identification)
-        self.add_player_to_db(player)
+        new_player = Player(last_name=last_name, first_name=first_name, birth_date=birth_date, identification=identification)
+        self.add_player_to_db(new_player)
         
-        return player
+    
+        Player.check_if_in_db(new_player)
+        
+        if not indb:
+            Player.add_player_to_db(new_player)
+        else:
+            self.view.already_in_db
+        self.view.print_player_added(new_player )
+        return new_player
+
+        

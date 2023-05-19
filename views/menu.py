@@ -11,7 +11,7 @@ class MainMenuView:
             "Please choose an option to continue:\n"
             "0: Create a new player\n"
             "1: Create a new tournament\n"
-            "2: Create a new round"
+            "2: Create a new round\n"
             "3: Continue an existing tournament\n"
             "4: Show reports\n"
             "5: Exit\n"
@@ -37,7 +37,7 @@ class ReportMenuView:
     
     def tournaments_names(self,tournament):
         for name in Tournament.tournament_names:
-        print(name)
+            print(name)
         
     def names_and_dates(self,tournament):
         print(Tournament.tournament_dict)

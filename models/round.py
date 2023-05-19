@@ -29,7 +29,7 @@ class Round:
         round = Round()
         if round_instance is None:
             round_instance = 1
-            round_players = random.shuffle(Tournament;players)
+            round_players = random.shuffle(Tournament.players)
             pairs = zip(*[iter(round_players)]*2)
             for pair in pairs:
                 self.matches.append(pair)
@@ -40,6 +40,7 @@ class Round:
             round.start()
             
         else:
+            pass
             
             
     def create_round(self,round_instance,matches):

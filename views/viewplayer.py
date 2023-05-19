@@ -22,5 +22,15 @@ class AddPlayerView:
     def already_in_db(self,player):
         print(f"Player already in DataBase: { player }")
         
+    def input_birth_date(self):
+        return input("Enter player's birth date (YYYY-MM-DD): ")
+    
+    def birth_date_success(self, birth_date):
+        print("Valid birth date:", birth_date)
+    
+    def birth_date_failure(self, date_string):
+        print("Invalid birth date:", date_string)
+        
+        
 
 

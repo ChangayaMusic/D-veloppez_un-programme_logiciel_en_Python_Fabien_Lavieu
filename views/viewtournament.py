@@ -28,12 +28,14 @@ class AddTournamentView:
         print("Invalid nb_rounds")
     
     def empty_tournament_description(self,response):
-        reponse = input("Are you sure you want to leave it empty? (yes/no) ")
-        return reponse
+        response = input("Are you sure you want to leave it empty? (yes/no) ")
+        return response
         
-        if reponse.lower() == "yes":
+        if response.lower() == "yes":
             print("You chose yes.")
-        else reponse.lower() == "no":
+        else :
+            self.input_tournament_descriptions()
+            
     
     def bd_validation(self, tournament):
         print(f"Tournament added to DataBase: { tournament }")

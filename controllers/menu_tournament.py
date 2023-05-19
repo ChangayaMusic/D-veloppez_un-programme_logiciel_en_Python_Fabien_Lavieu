@@ -1,15 +1,14 @@
 from views.viewtournament import AddTournamentView
 from models.tournament import Tournament
-from isdigit import isdigit
 from tinydb import TinyDB, Query
 
 class AddTournamentController:
 
     def __init__(self):
-        self.view = AddTournamentView() 
+        self.view = AddTournamentView()
         
     def validate_nb_rounds(self, nb_rounds):
-        if nb_rounds is nb_rounds.isdigit():
+        if nb_rounds.isdigit():
             return nb_rounds
         else:
             self.view.display_nb_rounds_errors()
@@ -17,12 +16,11 @@ class AddTournamentController:
     def validate_descriptions(self, description, response): 
         if description is None:
             self.view.empty_tournament_description()
-        if reponse.lower() == "yes":
+        elif response.lower() == "yes":
             return description
-        else reponse.lower() == "no":
+        elif response.lower() == "no":
             self.view.input_tournament_description()
             return description
-                   
           
     def add_new_tournament(self):
         tournament_name = None
