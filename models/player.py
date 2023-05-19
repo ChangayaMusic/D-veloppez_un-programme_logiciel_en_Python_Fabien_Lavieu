@@ -1,6 +1,6 @@
 import json
-from datetime import datetime
-from models.tournament import Tournament
+from datetime import datetime, date
+
 
 class Player:
     players = []  # List to store player objects
@@ -34,7 +34,13 @@ class Player:
     def save_players_to_json():
         players_data = [player.__dict__ for player in Player.players]
         with open('players.json', 'w') as file:
-            json.dump(players_data, file)
+            json.dump(players_data, file, default=Player.json_encoder)
+    
+    @staticmethod
+    def json_encoder(obj):
+        if isinstance(obj, (datetime, date)):
+            return obj.isoformat()
+        raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
     
     def check_if_in_db(self):
         for player in Player.players:

@@ -36,7 +36,7 @@ class AddTournamentController:
         
         tournament = Tournament(tournament_name=tournament_name, place=place, description = description)
         
-        return tournament
+        
     
         Tournament.check_if_in_database(tournament)
         if not result:
@@ -44,6 +44,8 @@ class AddTournamentController:
             self.view.print_tournament_added(tournament)
         else:
             self.view.already_in_db
+        
+        return tournament
         
 class LoadTournamentController:
     

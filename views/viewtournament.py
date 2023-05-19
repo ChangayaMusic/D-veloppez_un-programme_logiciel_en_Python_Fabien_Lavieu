@@ -3,11 +3,11 @@ from models.round import Round
 
 class AddTournamentView:    
         
-    def input_tournament_name(self, tournament_name):
+    def input_tournament_name(self):
         tournament_name = input("Enter tournament's name: ")
         return tournament_name
     
-    def input_tournament_place(self, place):
+    def input_tournament_place(self):
         place = input("Enter tournament's place: ")
         return place
         
@@ -16,7 +16,7 @@ class AddTournamentView:
         nb_rounds = input("How much rounds (default : 4): ")
         return nb_rounds
     
-    def input_tournament_descriptions(self, description):   
+    def input_tournament_description(self):   
         
         description = input("Enter description: ")
         return description
@@ -29,14 +29,14 @@ class AddTournamentView:
     
     def empty_tournament_description(self,response):
         response = input("Are you sure you want to leave it empty? (yes/no) ")
-        return response
+        
         
         if response.lower() == "yes":
             print("You chose yes.")
         else :
             self.input_tournament_descriptions()
             
-    
+        return response
     def bd_validation(self, tournament):
         print(f"Tournament added to DataBase: { tournament }")
         
