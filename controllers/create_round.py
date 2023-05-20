@@ -6,5 +6,6 @@ class CreateRoundController:
         self.view = RoundView()
         
     def new_round(self):
-        Round.create_first_round()
+        round = Round()
+        round.create_first_round()
         self.view.round_created()
