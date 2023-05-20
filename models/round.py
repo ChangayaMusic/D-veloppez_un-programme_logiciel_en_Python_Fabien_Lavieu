@@ -25,7 +25,7 @@ class Round:
         now = datetime.datetime.now()
         self.end_time = now.strftime("%Y-%m-%d %H:%M:%S")
         
-    def create_first_round(self,round_instance,matches):
+    def create_first_round(self):
         round = Round()
         if round_instance is None:
             round_instance = 1
@@ -40,7 +40,7 @@ class Round:
             round.start()
             
         else:
-            pass
+            self.create_round()
             
             
     def create_round(self,round_instance,matches):

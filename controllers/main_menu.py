@@ -1,7 +1,7 @@
 from models.tournament import Tournament
 from controllers.menu_player import AddPlayerController
 from controllers.menu_tournament import AddTournamentController
-
+from controllers.create_round import CreateRoundController
 
 from views.menu import MainMenuView
 from enum import IntEnum
@@ -23,6 +23,7 @@ class MainMenuController:
         self.view = MainMenuView()
         self.view.display_welcome()
         self.add_tournament_controller = None
+        self.add_round_controller = None
 
     def start_loop(self):
         option_selected = MainMenuOptions.UNASSIGNED
@@ -38,4 +39,5 @@ class MainMenuController:
                     self.add_tournament_controller.add_new_tournament()
             if option_selected == MainMenuOptions.NEW_ROUND:
                 if not self.add_round_controller:
-                    self.add_round_controller = "AddRoundController()"        
+                    self.add_round_controller = CreateRoundController()
+                    self.add_round_controller.new_round()
