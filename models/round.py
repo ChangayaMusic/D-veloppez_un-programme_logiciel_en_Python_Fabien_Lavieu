@@ -3,7 +3,6 @@ from models.tournament  import Tournament
 import random
 
 
-
 class Round:
     def __init__(self,round_instance=None,
                  name = "" ,
@@ -29,7 +28,7 @@ class Round:
         round = Round()
         if round_instance is None:
             round_instance = 1
-            round_players = random.shuffle(Tournament;players)
+            round_players = random.shuffle(Tournament.players)
             pairs = zip(*[iter(round_players)]*2)
             for pair in pairs:
                 self.matches.append(pair)
@@ -38,21 +37,19 @@ class Round:
             Tournament.round_list.append(round)
             round.round_instance + 1
             round.start()
-            
         else:
-            
+            pass
             
     def create_round(self,round_instance,matches):
-        
-            sorted_players = sorted(Tournament.players, key=lambda player: player.points, reverse=True)
-            grouped_players = []
-            current_group = [sorted_players[0]]
-            for i in range(1, len(sorted_players)):
-                if sorted_players[i].points == sorted_players[i - 1].points:
-                    current_group.append(sorted_players[i])
-                else:
-                    grouped_players.append(current_group)
-                    current_group = [sorted_players[i]]
+        sorted_players = sorted(Tournament.players, key=lambda player: player.points, reverse=True)
+        grouped_players = []
+        current_group = [sorted_players[0]]
+        for i in range(1, len(sorted_players)):
+            if sorted_players[i].points == sorted_players[i - 1].points:
+                current_group.append(sorted_players[i])
+            else:
+                grouped_players.append(current_group)
+                current_group = [sorted_players[i]]
             grouped_players.append(current_group)
 
             for group in grouped_players:
@@ -68,9 +65,3 @@ class Round:
             Tournament.round_list.append(round)
             round.round_instance + 1
             round.start()
-            
-            
-            
-            
-        
-        

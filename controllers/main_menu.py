@@ -17,10 +17,10 @@ class MainMenuOptions(IntEnum):
 
 class MainMenuController:
     def __init__(self) -> None:
-        self.tournament = Tournament()
         self.add_player_controller = None
         self.view = MainMenuView()
         self.view.display_welcome()
+        self.tournament = None
 
     def start_loop(self):
         option_selected = MainMenuOptions.UNASSIGNED
@@ -32,7 +32,8 @@ class MainMenuController:
                 self.tournament.players.append(self.add_player_controller.add_new_player())
             if option_selected == MainMenuOptions.NEW_TOURNAMENT:
                 if not self.add_tournament_controller:
-                    self.add_tournament_controller = AddTournamentController
+                    self.add_tournament_controller = AddTournamentController()
             if option_selected == MainMenuOptions.NEW_ROUND:
                 if not self.add_round_controller:
-                    self.add_round_controller = AddRoundController        
+                    pass
+                    # self.add_round_controller = AddRoundController()

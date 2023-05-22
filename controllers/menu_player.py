@@ -16,8 +16,7 @@ class AddPlayerController:
             return None  # return None if identification is invalid
         
     def add_player_to_db(self, player):
-            
-        Player.check_if_in_db(player)
+        result = Player.check_if_in_db(player)
         if result:
             self.view.already_in_db(player)
         else:

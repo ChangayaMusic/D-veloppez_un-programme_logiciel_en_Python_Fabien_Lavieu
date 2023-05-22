@@ -1,4 +1,4 @@
-from views.loadtournament import LoadTournamentView
+from views.viewtournament import LoadTournamentView
 from models.tournament import Tournament
 
 class LoadTournamentController : 

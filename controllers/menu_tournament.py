@@ -1,25 +1,24 @@
 from views.viewtournament import AddTournamentView
 from models.tournament import Tournament
-from isdigit import isdigit
 from tinydb import TinyDB, Query
 
 class AddTournamentController:
 
     def __init__(self):
-        self.view = AddTournamentView() 
+        self.view = AddTournamentView()     
         
     def validate_nb_rounds(self, nb_rounds):
-        if nb_rounds is nb_rounds.isdigit():
+        if nb_rounds.isdigit():
             return nb_rounds
         else:
             self.view.display_nb_rounds_errors()
     
     def validate_descriptions(self, description, response): 
-        if description is None:
+        if not description:
             self.view.empty_tournament_description()
-        if reponse.lower() == "yes":
+        if response.lower() == "yes":
             return description
-        else reponse.lower() == "no":
+        elif response.lower() == "no":
             self.view.input_tournament_description()
             return description
                    
@@ -38,14 +37,14 @@ class AddTournamentController:
         
         tournament = Tournament(tournament_name=tournament_name, place=place, description = description)
         
-        return tournament
-    
-        Tournament.check_if_in_database(tournament)
+        result = Tournament.check_if_in_database(tournament)
         if not result:
             Tournament.add_to_database(tournament)
             self.view.print_tournament_added(tournament)
         else:
             self.view.already_in_db
+        
+        return tournament
         
 class LoadTournamentController:
     
@@ -55,7 +54,7 @@ class LoadTournamentController:
     def load_tournament(self, tournament, tournament_name):
         
         db = TinyDB('tournaments.json')
-        Tournament.check_if_in_database(tournament)
+        result = Tournament.check_if_in_database(tournament)
         if result:
             tournament_data = result[0]
             tournament = Tournament(**tournament_data)
