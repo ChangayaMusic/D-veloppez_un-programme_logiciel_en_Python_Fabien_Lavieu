@@ -11,7 +11,7 @@ class LoadTournamentController:
 
     def load_tournaments_from_file(self):
         
-        file_name = LoadTournamentView.ask_for_file()
+        file_name = self.view.ask_for_file()
         with open(file_name, 'r') as file:
             tournaments = json.load(file)
         return tournaments

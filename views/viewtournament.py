@@ -57,7 +57,7 @@ class LoadTournamentView:
     def tournament_loaded(self,tournament):
         print(f"Tournament loaded from DataBase: { tournament }")
     
-    def ask_for_file(self, file_name=None):
+    def ask_for_file(self):
         file_name = input("Please enter file name: ")
         if file_name.endswith(".json"):
             return file_name
