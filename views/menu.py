@@ -48,14 +48,10 @@ class ReportMenuView:
         for player in sorted_players:
             print(player)
             
-    def show_tournaments_list(self):
-        self.load_tournaments_from_json()
-        if self.tournaments:
-            print("Tournament Names:")
-            for tournament in self.tournaments:
-                print(tournament['name'])
-        else:
-            print("No tournaments found.")
+    @staticmethod
+    def show_tournaments_list(tournament_list):
+        for tournament in tournament_list:
+            print(tournament)
               
     def rounds_matches(self,tournament):
         print()

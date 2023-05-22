@@ -1,17 +1,18 @@
 from views.viewtournament import LoadTournamentView
-
+import os
 from models.tournament import Tournament
 import json
 class LoadTournamentController:
     def __init__(self):
         self.view = LoadTournamentView()
         
-        
+    def ask_for_file(self):
+        return self.view.ask_for_file()    
     
 
-    def load_tournaments_from_file(self):
-        
-        file_name = self.view.ask_for_file()
+    def load_tournaments_from_file(self, file_name):
+        if not os.path.exists(file_name):
+            return None
         with open(file_name, 'r') as file:
             tournaments = json.load(file)
         return tournaments
@@ -27,5 +28,20 @@ class LoadTournamentController:
         self.view.tournament_is_not_in_db()
 
     def file_not_found(self):
-            print("File not found")
+        print("File not found")
+            
     
+    
+    def show_tournaments_name_date(self):
+        
+        tournaments = self.load_tournaments_from_file()
+
+        if tournaments:
+            for tournament in tournaments:
+                name = tournament["name"]
+                date = tournament["date"]
+                print(f"Tournament Name: {name}, Date: {date}")
+        else:
+            print("No tournaments found.")
+    
+        

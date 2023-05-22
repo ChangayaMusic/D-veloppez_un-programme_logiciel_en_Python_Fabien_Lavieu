@@ -66,7 +66,29 @@ class LoadTournamentView:
             
     def file_note_found():
         print("File not found")
-    
+        
+    def show_tournaments_list(self):
+        
+        tournaments = self.load_tournaments_from_file()
+
+        if tournaments:
+            print("List of Tournaments:")
+            for tournament in tournaments:
+                print(tournament)
+        else:
+            print("No tournaments found.")
+            
+    def show_tournaments_name_date(self):
+        
+        tournaments = self.load_tournaments_from_file()
+
+        if tournaments:
+            for tournament in tournaments:
+                name = tournament["name"]
+                date = tournament["date"]
+                print(f"Tournament Name: {name}, Date: {date}")
+        else:
+            print("No tournaments found.")
         
     
     
