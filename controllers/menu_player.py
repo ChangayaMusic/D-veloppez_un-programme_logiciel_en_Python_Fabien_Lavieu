@@ -13,7 +13,7 @@ class AddPlayerController:
             return identification
         else:
             self.view.display_identification_error()
-            return None  # return None if identification is invalid
+            return None  
     
     def validate_birth_date(self, date_string):
         try:
@@ -33,6 +33,7 @@ class AddPlayerController:
         self.view.print_player_added(player)
 
     def add_new_player(self):
+        
         identification = None
         first_name = None
         last_name = None

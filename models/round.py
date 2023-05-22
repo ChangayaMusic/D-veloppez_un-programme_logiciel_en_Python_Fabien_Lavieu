@@ -3,12 +3,13 @@ from models.tournament import Tournament
 import random
 
 class Round:
-    def __init__(self, round_instance=None, name="", matches=[], start_time=None, end_time=None):
+    def __init__(self, round_instance=None, name="", matches=[], start_time=None, end_time=None,tournament=None):
         self.name = name
         self.round_instance = round_instance
         self.matches = matches
         self.start_time = start_time
         self.end_time = end_time
+        self.tournament = tournament
 
     def start(self):
         now = datetime.datetime.now()
@@ -18,10 +19,11 @@ class Round:
         now = datetime.datetime.now()
         self.end_time = now.strftime("%Y-%m-%d %H:%M:%S")
 
-    def create_first_round(self):
+    def create_first_round(self,tournament):
+        round_players = tournament.players.copy()
         if self.round_instance is None:
             self.round_instance = 1
-            round_players = Tournament.players.copy()
+            
             random.shuffle(round_players)
             pairs = zip(*[iter(round_players)] * 2)
             for pair in pairs:

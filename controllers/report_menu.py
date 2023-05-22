@@ -3,7 +3,8 @@ from enum import IntEnum
 from models.tournament import Tournament
 from controllers.menu_tournament import LoadTournamentController
 from models.player import Player
-from views.viewtournament import ViewTournament, LoadTournamentView
+from views.viewtournament   import LoadTournamentView
+
 
 class ReportsMenuOptions(IntEnum):
     UNASSIGNED = -1
@@ -18,34 +19,39 @@ class ReportsMenuController:
     def __init__(self) -> None:
         self.tournament = Tournament()
         self.view = ReportMenuView()
+        self.show_tournaments_list=None
+        self.all_players=None
+        self.show_tournaments_date_name=None
+        self.tournament_players = None
+        self.rounds_matches = None
         
     def start_loop(self):
-        option_selected = ReportMenuView.UNASSIGNED
-        while option_selected != ReportMenuView.EXIT:
-            option_selected = int(self.view.select_option())
+        option_selected = ReportsMenuOptions.UNASSIGNED
+        while option_selected != ReportsMenuOptions.EXIT:
+            option_selected = int(self.view.select_report())
             
-            if option_selected == ReportMenuView.ALL_PLAYERS:
+            if option_selected == ReportsMenuOptions.ALL_PLAYERS:
                 if not self.all_players:
-                    self.all_players = Tournament.all_player_by_name(self)
+                    self.all_players = Tournament.get_all_players_by_name(self)
                 self.view.display_all_players(self)
                 
-            if option_selected == ReportMenuView.TOURNAMENT8_LIST:
+            if option_selected == ReportsMenuOptions.TOURNAMENT8_LIST:
                 if not self.show_tournaments_list:
-                    self.show_tournaments_list = Tournament.get_tournaments_names
+                    self.show_tournaments_list = Tournament.get_tournaments_names()
                 LoadTournamentView.tournaments_names()
                 
-            if option_selected == ReportMenuView.TOURNAMENT8_DATE_NAME:
+            if option_selected == ReportsMenuOptions.TOURNAMENT8_DATE_NAME:
                 if not self.show_tournaments_date_name:
-                    self.show_tournaments_date_name = Tournament.get_tournaments_names
+                    self.show_tournaments_date_name = Tournament.get_tournaments_names()
                 self.view.names_and_dates()
                 
-            if option_selected == ReportMenuView.TOURNAMENT8_PLAYERS:
+            if option_selected == ReportsMenuOptions.TOURNAMENT8_PLAYERS:
                 if not self.tournament_players:
                     self.tournament_players = LoadTournamentController()
                 Tournament.sort_by_name(self.tournament)
                 self.view.display_players(self.tournament)
                 
-            if option_selected == ReportMenuView.TOURNAMENT_ROUNDS_MATCHES:
+            if option_selected == ReportsMenuOptions.TOURNAMENT_ROUNDS_MATCHES:
                 if not self.rounds_matches:
                     self.rounds_matches = LoadTournamentController()
                 
