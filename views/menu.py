@@ -1,6 +1,7 @@
 # from views.viewplayer import ViewPlayer
 from models.tournament import Tournament
 from models.round import Round
+from models.player  import Player
 
 class MainMenuView:
     def display_welcome(self):
@@ -43,8 +44,26 @@ class ReportMenuView:
         print(Tournament.tournament_dict)
         
     def display_all_players(self,tournament):
-        for player in Tournament.sorted_players:
-            print(player['name'])
+        sorted_players = sorted(Player.players, key=lambda player: player.last_name)
+        for player in sorted_players:
+            print(player)
             
+    @staticmethod
+    def show_tournaments_list(tournament_list):
+        for tournament in tournament_list:
+            print(tournament)
+              
     def rounds_matches(self,tournament):
         print()
+
+    
+            
+    
+    
+        
+        
+    
+        
+    
+        
+   
