@@ -31,6 +31,8 @@ class AddPlayerView:
     def birth_date_failure(self, date_string):
         print("Invalid birth date:", date_string)
         
+    
+        
         
 
 

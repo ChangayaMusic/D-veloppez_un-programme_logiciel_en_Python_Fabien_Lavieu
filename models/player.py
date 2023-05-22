@@ -1,9 +1,8 @@
 import json
 from datetime import datetime, date
 
-
 class Player:
-    players = []  # List to store player objects
+    players = []  
     
     def __init__(self, last_name, first_name, birth_date, identification,
                  points=0, opponents=[], tournament_score=0, rank=0):
@@ -32,7 +31,7 @@ class Player:
     
     @staticmethod
     def save_players_to_json():
-        players_data = [player.__dict__ for player in Player.players]
+        players_data = [player.to_dict() for player in Player.players]
         with open('players.json', 'w') as file:
             json.dump(players_data, file, default=Player.json_encoder)
     
@@ -52,3 +51,15 @@ class Player:
         if not self.check_if_in_db():
             Player.players.append(self)
             Player.save_players_to_json()
+    
+    def to_dict(self):
+        return {
+            'last_name': self.last_name,
+            'first_name': self.first_name,
+            'birth_date': self.birth_date,
+            'identification': self.identification,
+            'points': self.points,
+            'rank': self.rank,
+            'opponents': self.opponents,
+            'tournament_score': self.tournament_score
+        }

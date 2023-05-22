@@ -4,6 +4,8 @@ from models.tournament import Tournament
 from controllers.menu_tournament import LoadTournamentController
 from models.player import Player
 from views.viewtournament   import LoadTournamentView
+from controllers.loadtournament import LoadTournamentController
+import json
 
 
 class ReportsMenuOptions(IntEnum):
@@ -25,6 +27,9 @@ class ReportsMenuController:
         self.tournament_players = None
         self.rounds_matches = None
         
+    
+  
+        
     def start_loop(self):
         option_selected = ReportsMenuOptions.UNASSIGNED
         while option_selected != ReportsMenuOptions.EXIT:
@@ -32,13 +37,14 @@ class ReportsMenuController:
             
             if option_selected == ReportsMenuOptions.ALL_PLAYERS:
                 if not self.all_players:
-                    self.all_players = Tournament.get_all_players_by_name(self)
+                    self.all_players = Player.load_players_from_json()
                 self.view.display_all_players(self)
                 
             if option_selected == ReportsMenuOptions.TOURNAMENT8_LIST:
                 if not self.show_tournaments_list:
-                    self.show_tournaments_list = Tournament.get_tournaments_names()
-                LoadTournamentView.tournaments_names()
+                    self.show_tournaments_list = LoadTournamentController.load_tournaments_from_file()
+                self.view.show_tournaments_list()    
+                
                 
             if option_selected == ReportsMenuOptions.TOURNAMENT8_DATE_NAME:
                 if not self.show_tournaments_date_name:

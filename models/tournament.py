@@ -2,11 +2,13 @@ import datetime
 import random
 import json
 import os
-from controllers.loadtournament import LoadTournament
+
 
 class Tournament:
+    tournaments = []  # List to store tournament objects
+    round_list = []  # List to store rounds of the tournament
     def __init__(self, tournament_name="", place="",
-                 nb_rounds=4, players=None, description='',
+                 nb_rounds=4, players=[], description='',
                  round_list=None,**kwargs):
         self.tournament_name = tournament_name
         self.place = place
@@ -56,14 +58,11 @@ class Tournament:
         
     def get_all_players_by_name(self):
         tournaments = self.load_tournaments_from_file()
-        players = [player for tournament in tournaments for player in tournament['players']]
-        sorted_players = sorted(players, key=lambda x: x['name'])
+        all_players = [player for tournament in tournaments for player in tournament['players']]
+        sorted_players = sorted(all_players, key=lambda x: x['name'])
         return sorted_players
     
-    def load_tournaments_from_file(self):
-        with open('tournaments.json', 'r') as file:
-            tournaments = json.load(file)
-        return tournaments
+   
     
     def load_tournament_by_name(self, tournament_name):
         tournaments = self.load_tournaments_from_file()

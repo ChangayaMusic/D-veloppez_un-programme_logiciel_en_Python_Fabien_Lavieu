@@ -48,7 +48,7 @@ class AddTournamentView:
         
 class LoadTournamentView:
     
-    def input_tournament(self, tournament_name):
+    def input_tournament(tournament_name):
         return input(f"Enter the name of the tournament '{tournament_name}': ")
 
     def tournament_is_not_in_db(self):
@@ -57,7 +57,15 @@ class LoadTournamentView:
     def tournament_loaded(self,tournament):
         print(f"Tournament loaded from DataBase: { tournament }")
     
-    
+    def ask_for_file(self, file_name=None):
+        file_name = input("Please enter file name: ")
+        if file_name.endswith(".json"):
+            return file_name
+        else:
+            print("Invalid file format. Please enter a JSON file.")
+            
+    def file_note_found():
+        print("File not found")
     
         
     
