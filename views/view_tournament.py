@@ -1,7 +1,4 @@
-
-
-class AddTournamentView:    
-        
+class AddTournamentView:
     def input_tournament_name(self):
         tournament_name = input("Enter tournament's name: ")
         return tournament_name
@@ -34,6 +31,7 @@ class AddTournamentView:
             self.input_tournament_descriptions()
             
         return response
+
     def bd_validation(self, tournament):
         print(f"Tournament added to DataBase: { tournament }")
         
@@ -47,9 +45,8 @@ class AddTournamentView:
         print(f"Tournament loaded from DataBase: { tournament }")
         
 class LoadTournamentView:
-    
-    def input_tournament(tournament_name):
-        return input(f"Enter the name of the tournament '{tournament_name}': ")
+    def input_tournament(self):
+        return input(f"Enter the name of the tournament: ")
 
     def tournament_is_not_in_db(self):
         print("The tournament is not found in the database.")
@@ -79,7 +76,6 @@ class LoadTournamentView:
             print("No tournaments found.")
             
     def show_tournaments_name_date(self):
-        
         tournaments = self.load_tournaments_from_file()
 
         if tournaments:

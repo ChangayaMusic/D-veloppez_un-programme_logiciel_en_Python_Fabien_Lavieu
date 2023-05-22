@@ -43,8 +43,8 @@ class ReportMenuView:
     def names_and_dates(self,tournament):
         print(Tournament.tournament_dict)
         
-    def display_all_players(self,tournament):
-        sorted_players = sorted(Player.players, key=lambda player: player.last_name)
+    def display_all_players(self, players):
+        sorted_players = sorted(players, key=lambda player: player.last_name)
         for player in sorted_players:
             print(player)
             

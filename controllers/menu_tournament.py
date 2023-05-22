@@ -1,5 +1,5 @@
 import json
-from views.viewtournament import AddTournamentView
+from views.view_tournament import AddTournamentView
 from models.tournament import Tournament
 
 class AddTournamentController:

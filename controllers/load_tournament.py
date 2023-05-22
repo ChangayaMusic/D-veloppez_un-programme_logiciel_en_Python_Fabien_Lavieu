@@ -1,7 +1,8 @@
-from views.viewtournament import LoadTournamentView
+from views.view_tournament import LoadTournamentView
 import os
 from models.tournament import Tournament
 import json
+
 class LoadTournamentController:
     def __init__(self):
         self.view = LoadTournamentView()

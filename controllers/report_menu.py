@@ -3,9 +3,9 @@ import json
 from views.menu import ReportMenuView
 from enum import IntEnum
 from models.tournament import Tournament
-from controllers.loadtournament import LoadTournamentController
-from models.player import Player
-from views.viewtournament import LoadTournamentView
+from controllers.load_tournament import LoadTournamentController
+from models.player import PlayerManager
+from views.view_tournament import LoadTournamentView
 
 class ReportsMenuOptions(IntEnum):
     UNASSIGNED = -1
@@ -17,10 +17,10 @@ class ReportsMenuOptions(IntEnum):
     EXIT = 5
 
 class ReportsMenuController:
-    def __init__(self):
+    def __init__(self, player_manager):
         self.load_tournament_controller = LoadTournamentController()
         self.view = ReportMenuView()
-        self.all_players = None
+        self.player_manager = player_manager
         self.tournament_list = None
         self.tournament_date_name = None
         self.tournament_players = None
@@ -32,9 +32,8 @@ class ReportsMenuController:
             option_selected = int(self.view.select_report())
 
             if option_selected == ReportsMenuOptions.ALL_PLAYERS:
-                if not self.all_players:
-                    self.all_players = Player.load_players_from_json()
-                self.view.display_all_players(self.all_players)
+                players = PlayerManager.load_players_from_json()
+                self.view.display_all_players(players)
 
             if option_selected == ReportsMenuOptions.TOURNAMENT_LIST:
                 if not self.tournament_list:

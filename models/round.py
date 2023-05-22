@@ -19,7 +19,7 @@ class Round:
         now = datetime.datetime.now()
         self.end_time = now.strftime("%Y-%m-%d %H:%M:%S")
 
-    def create_first_round(self,tournament):
+    def create_first_round(self, tournament):
         round_players = tournament.players.copy()
         if self.round_instance is None:
             self.round_instance = 1

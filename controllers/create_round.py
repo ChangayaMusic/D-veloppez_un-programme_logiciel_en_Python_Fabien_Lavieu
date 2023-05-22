@@ -1,4 +1,4 @@
-from views.viewround import RoundView
+from views.view_round import RoundView
 from models.round import Round
 
 class CreateRoundController:

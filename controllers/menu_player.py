@@ -1,14 +1,15 @@
-from views.viewplayer import AddPlayerView
+from views.view_player import AddPlayerView
 from models.player import Player
 from datetime import datetime
 import re
 
 class AddPlayerController:
-    def __init__(self):
+    def __init__(self, player_manager):
         self.view = AddPlayerView()
+        self.player_manager = player_manager
     
     def validate_identification(self, identification):
-        pattern = r'^[a-zA-Z]{2}\d{4}$'
+        pattern = r'^[a-zA-Z]{2}\d{5}$'
         if re.match(pattern, identification):
             return identification
         else:
@@ -23,11 +24,11 @@ class AddPlayerController:
             return None
     
     def add_player_to_db(self, player):
-        indb = player.check_if_in_db()
-        if indb:
+        in_db = self.player_manager.check(player)
+        if in_db:
             self.view.already_in_db(player)
         else:
-            player.add_player_to_db()
+            self.player_manager.add(player)
             self.view.bd_validation(player)
 
         self.view.print_player_added(player)
