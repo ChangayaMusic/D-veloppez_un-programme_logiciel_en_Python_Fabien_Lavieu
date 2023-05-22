@@ -1,4 +1,6 @@
 from views.viewtournament   import  LoadTournamentView
+
+from models.round import Round
 from models.tournament import Tournament
 import json
 class LoadTournamentController:

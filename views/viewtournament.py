@@ -1,5 +1,4 @@
 
-from models.round import Round
 
 class AddTournamentView:    
         
