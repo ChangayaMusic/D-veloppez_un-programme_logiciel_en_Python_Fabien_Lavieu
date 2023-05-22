@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-from models.round import Round
-
-class RoundView:
-    pass
-=======
 from models.round   import Round
 
 class RoundView:
@@ -14,4 +8,3 @@ class RoundView:
 
         
         
->>>>>>> 65e8627d2701bdb0513e83d0c76cf664d7b1c328
