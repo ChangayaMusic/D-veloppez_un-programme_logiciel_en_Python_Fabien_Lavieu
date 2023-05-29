@@ -90,26 +90,7 @@ class LoadTournamentController:
             else:
                 self.view.tournament_not_found()
                 
-class TournamentsActions:
-        
-        
-    def __init__(self) -> None:
-        self.view = TournamentActionsMenu
-    
-    def add_player_to_tournaments(self,tournament):
-        
-        print(players)
-        AddPlayerView.show_players(players)
-        indices = AddPlayerView.input_chosen_players()
-        selected_players = []
 
-        for index in indices.split(','):
-            try:
-                selected_players.append(players[int(index) - 1])
-            except (ValueError, IndexError):
-                print(f"Illegal index: {index}")
-        for player in selected_players:
-            tournament.players.append(player)
             
         
        

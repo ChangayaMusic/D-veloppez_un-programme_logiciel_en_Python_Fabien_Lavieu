@@ -72,6 +72,21 @@ class TournamentActionsMenu:
                 "Your choice ? "
             )
       
+    def show_players(self,players):
+        for player in players:
+            print(player.last_name,player.identification)
+            pass
+    
+    def get_players_ids(self,players_to_add):
+        ids = input("Enter player's ids (separated by commas): ").split(",")
+        for i in ids:
+            players_to_add.append(i)
+        return players_to_add
+        
+
+    
+    
+          
     
             
     
