@@ -9,16 +9,17 @@ class Tournament:
     round_list = []  # List to store rounds of the tournament
     def __init__(self, tournament_name="", place="",
                  nb_rounds=4, players=[], description='',
-                 round_list=None,**kwargs):
+                 round_list=None,star_time=None,**kwargs):
         self.tournament_name = tournament_name
         self.place = place
         self.nb_rounds = nb_rounds
         self.players = players
         self.description = description
         self.round_list = round_list
+        self.start_time = star_time
        
     
-    @property
+   
     def start_time(self):
         now = datetime.datetime.now()
         return now.strftime("%Y-%m-%d %H:%M:%S")
@@ -47,7 +48,7 @@ class Tournament:
         return tournament_names
     
     def get_dates_names(self):
-        tournaments = LoadTournament.load_tournament_by_name()
+        tournaments = Tournament.LoadTournament.load_tournament_by_name()
         tournament_dict = {}
 
         for tournament in tournaments:
@@ -73,3 +74,8 @@ class Tournament:
     def save_tournaments_to_file(self, tournaments):
         with open('tournaments.json', 'w') as file:
             json.dump(tournaments, file)
+            
+    
+    
+            
+    

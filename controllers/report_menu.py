@@ -3,7 +3,7 @@ import json
 from views.menu import ReportMenuView
 from enum import IntEnum
 from models.tournament import Tournament
-from controllers.load_tournament import LoadTournamentController
+from controllers.menu_tournament import LoadTournamentController
 from models.player import PlayerManager
 from views.view_tournament import LoadTournamentView
 
@@ -27,17 +27,18 @@ class ReportsMenuController:
         self.rounds_matches = None
 
     def start_loop(self):
+        file_name = 'tournaments.json'
         option_selected = ReportsMenuOptions.UNASSIGNED
         while option_selected != ReportsMenuOptions.EXIT:
             option_selected = int(self.view.select_report())
 
             if option_selected == ReportsMenuOptions.ALL_PLAYERS:
-                players = PlayerManager.load_players_from_json()
+                players = PlayerManager.load_players_from_json(self)
                 self.view.display_all_players(players)
 
             if option_selected == ReportsMenuOptions.TOURNAMENT_LIST:
                 if not self.tournament_list:
-                    file_name = self.load_tournament_controller.ask_for_file()
+                 
                     if file_name is None:
                         LoadTournamentView.file_not_found()
                     elif not os.path.exists(file_name):
@@ -51,7 +52,7 @@ class ReportsMenuController:
 
             if option_selected == ReportsMenuOptions.TOURNAMENT_DATE_NAME:
                 if not self.tournament_list:
-                    file_name = self.load_tournament_controller.ask_for_file()
+                    
                     if file_name is None:
                         LoadTournamentView.file_not_found()
                     elif not os.path.exists(file_name):

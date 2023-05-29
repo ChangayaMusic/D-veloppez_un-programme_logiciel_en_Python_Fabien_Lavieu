@@ -18,12 +18,10 @@ class PlayerManager:
     def load_players_from_json(self):
         players = []
 
-        try:
-            with open('players.json', 'r') as file:
-                players_data = json.load(file)
-        except FileNotFoundError:
-            return players
-
+        
+        with open('players.json', 'r') as file:
+            players_data = json.load(file)
+    
         for player_data in players_data:
             player = Player(**player_data)
             players.append(player)

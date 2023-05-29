@@ -1,3 +1,4 @@
+
 class AddTournamentView:
     def input_tournament_name(self):
         tournament_name = input("Enter tournament's name: ")
@@ -31,6 +32,11 @@ class AddTournamentView:
             self.input_tournament_descriptions()
             
         return response
+    
+    def create_file(self):
+        create_file = input("Tournaments file doesn't exist. Do you want to create it? (yes/no): ")
+        return create_file.lower()
+        
 
     def bd_validation(self, tournament):
         print(f"Tournament added to DataBase: { tournament }")
@@ -61,8 +67,8 @@ class LoadTournamentView:
         else:
             print("Invalid file format. Please enter a JSON file.")
             
-    def file_note_found():
-        print("File not found")
+    def file_not_found():
+        print("No JSON file have been found. An empty one have been created.")
         
     def show_tournaments_list(self):
         
@@ -75,16 +81,23 @@ class LoadTournamentView:
         else:
             print("No tournaments found.")
             
-    def show_tournaments_name_date(self):
-        tournaments = self.load_tournaments_from_file()
-
+    def show_tournaments_name_date(tournaments):
+        
         if tournaments:
             for tournament in tournaments:
-                name = tournament["name"]
-                date = tournament["date"]
+                name = tournament["tournament_name"]
+                date = tournament["start_time"]
                 print(f"Tournament Name: {name}, Date: {date}")
         else:
             print("No tournaments found.")
+            
+    def ask_for_tournament(tournaments):
+        
+        print(tournaments)
+        return input('which tournament do you want to load ?')
+
+    
+    
         
     
     

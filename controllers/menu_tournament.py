@@ -1,6 +1,10 @@
 import json
-from views.view_tournament import AddTournamentView
+from views.view_tournament import AddTournamentView, LoadTournamentView
+from views.view_player import AddPlayerView
 from models.tournament import Tournament
+from models.player  import PlayerManager
+from views.menu import TournamentActionsMenu
+
 
 class AddTournamentController:
     def __init__(self):
@@ -56,7 +60,8 @@ class AddTournamentController:
     def load_tournaments_from_file(self):
         try:
             with open(self.file_name, 'r') as file:
-                return json.load(file)
+                tournaments = json.load(file)
+                return tournaments
         except FileNotFoundError:
             return []
     
@@ -66,22 +71,45 @@ class AddTournamentController:
 
 class LoadTournamentController:
     def __init__(self):
-        self.view = AddTournamentView()
+        self.view = LoadTournamentView()
         self.file_name = 'tournaments.json'
-        
-    def load_tournament(self, tournament_name):
-        tournaments = self.load_tournaments_from_file()
-        result = [t for t in tournaments if t['tournament_name'] == tournament_name]
-        if result:
-            tournament_data = result[0]
-            tournament = Tournament(**tournament_data)
-            self.view.load_tournament(tournament)
-        else:
-            self.view.tournament_is_not_in_db(tournament_name)
-    
-    def load_tournaments_from_file(self):
+
+    def load_tournaments_from_file(self, file_name='tournaments.json'):
         try:
-            with open(self.file_name, 'r') as file:
-                return json.load(file)
+            with open(file_name, 'r') as file:
+                tournaments = json.load(file)
+                return tournaments
         except FileNotFoundError:
             return []
+
+    def load_tournament_by_name(self,tournaments,tournament_name):
+        for tournament in tournaments:
+            if tournament['tournament_name'] == tournament_name:
+                self.view.tournament_loaded(tournament)
+                return tournament
+            else:
+                self.view.tournament_not_found()
+                
+class TournamentsActions:
+        
+        
+    def __init__(self) -> None:
+        self.view = TournamentActionsMenu
+    
+    def add_player_to_tournaments(self,tournament):
+        
+        print(players)
+        AddPlayerView.show_players(players)
+        indices = AddPlayerView.input_chosen_players()
+        selected_players = []
+
+        for index in indices.split(','):
+            try:
+                selected_players.append(players[int(index) - 1])
+            except (ValueError, IndexError):
+                print(f"Illegal index: {index}")
+        for player in selected_players:
+            tournament.players.append(player)
+            
+        
+       

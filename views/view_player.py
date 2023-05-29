@@ -31,6 +31,16 @@ class AddPlayerView:
     def birth_date_failure(self, date_string):
         print("Invalid birth date:", date_string)
         
+    def show_players(self, players):
+        print("Available players:")
+        for i, player in enumerate(players):
+            print(f"{i+1}. {player}")
+            
+   
+        
+        
+    
+        
     
         
         

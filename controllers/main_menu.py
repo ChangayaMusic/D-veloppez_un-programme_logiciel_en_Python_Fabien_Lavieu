@@ -1,12 +1,15 @@
+
 from models.player import PlayerManager
 from models.tournament import Tournament
 from controllers.menu_player import AddPlayerController
-from controllers.menu_tournament import AddTournamentController
+from controllers.menu_tournament import AddTournamentController, TournamentsActions
 from controllers.create_round import CreateRoundController
-from controllers.load_tournament import LoadTournamentController
+from controllers.menu_tournament import LoadTournamentController
 from controllers.report_menu import ReportsMenuController
 from views.menu import MainMenuView
+from views.view_tournament import AddTournamentView, LoadTournamentView
 from enum import IntEnum
+from controllers.action_menu import ActionMenuOptions, ActionMenuController
 
 class MainMenuOptions(IntEnum):
     UNASSIGNED = -1
@@ -29,7 +32,6 @@ class MainMenuController:
         self.load_tournament_controller = None
         self.show_report_controller = None
         
-
     def start_loop(self):
         self.tournament = Tournament()
         option_selected = MainMenuOptions.UNASSIGNED
@@ -42,17 +44,21 @@ class MainMenuController:
             if option_selected == MainMenuOptions.NEW_TOURNAMENT:
                 if not self.add_tournament_controller:
                     self.add_tournament_controller = AddTournamentController()
-                    self.add_tournament_controller.add_new_tournament()
+                self.add_tournament_controller.add_new_tournament()
             if option_selected == MainMenuOptions.LOAD_TOURNAMENT:
                 if not self.load_tournament_controller:
-                    self.load_tournament_controller = LoadTournamentController()  
-                    self.load_tournament_controller.load_tournament_by_name()
+                    self.load_tournament_controller = LoadTournamentController()
+                    tournaments = self.load_tournament_controller.load_tournaments_from_file()
+                    LoadTournamentView.show_tournaments_name_date(tournaments)
+                    tournament_name = LoadTournamentView.ask_for_tournament(tournaments)  
+                    tournament = self.load_tournament_controller.load_tournament_by_name(tournaments, tournament_name)
+                    ActionMenuController.start_loop(tournament)
+                                
             if option_selected == MainMenuOptions.NEW_ROUND:
                 if not self.add_round_controller:
                     self.add_round_controller = CreateRoundController()
-                    self.add_round_controller.new_round(Tournament())
+                self.add_round_controller.new_round(Tournament())
             if option_selected == MainMenuOptions.SHOW_REPORTS:
                 if not self.show_report_controller:
                     self.show_report_controller = ReportsMenuController(self.player_manager)
-                    self.show_report_controller.start_loop()
-                    
+                self.show_report_controller.start_loop()

@@ -56,8 +56,30 @@ class ReportMenuView:
     def rounds_matches(self,tournament):
         print()
 
+class TournamentActionsMenu:
+    
+    
+    def select_action(self):
+       
+        return input(
+                "Please choose an option to continue:\n"
+                "0: Add player(s) to a Tournament\n"
+                "1: Start a Round\n"
+                "2: Start Round's matches \n"
+                "3: ??????\n"
+                "4: End Tournament\n"
+                "5: Main Menu\n"
+                "Your choice ? "
+            )
+      
     
             
+    
+   
+        
+
+           
+                 
     
     
         
