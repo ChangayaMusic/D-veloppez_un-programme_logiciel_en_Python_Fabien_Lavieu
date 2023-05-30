@@ -12,12 +12,10 @@ class ActionMenuOptions(IntEnum):
     SHOW_REPORTS = 4
     EXIT = 5
 
-
 class ActionMenuController:
     def __init__(self):
         self.view = TournamentActionsMenu()
         self.player_manager = PlayerManager()
-        
 
     def start_loop(self, tournament):
         option_selected = ActionMenuOptions.UNASSIGNED
@@ -28,15 +26,14 @@ class ActionMenuController:
                 self.view.show_players(players)
 
                 players_to_add = self.view.get_players_ids(players_to_add=[])
-                print(players_to_add)
-                
-                
+                found_players = []  
+
+                for id in players_to_add:
+                    self.player_manager.find_player_by_identification(id, players, found_players)
+
+                for player in found_players:
+                    tournament.players.append(player)
+                    
             elif option_selected == ActionMenuOptions.EXIT:
                 pass
 
-    @staticmethod
-    def add_players_by_name(players, players_to_add, tournament):
-        for player in players:
-            if player.name in players_to_add:
-                tournament.players.append(player)
-        return players_to_add

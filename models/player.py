@@ -32,6 +32,14 @@ class PlayerManager:
         players_data = [player.to_dict() for player in self.players]
         with open('players.json', 'w') as file:
             json.dump(players_data, file)
+            
+    def find_player_by_identification(self, id,players,found_players=[]):
+        for player in players:
+            if player.identification == id:
+                found_players.append(player)
+        return found_players
+           
+        
 
 class Player:
     def __init__(self, last_name, first_name, birth_date, identification,
