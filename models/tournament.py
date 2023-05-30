@@ -3,7 +3,6 @@ import random
 import json
 import os
 
-
 class Tournament:
     tournaments = []  # List to store tournament objects
     round_list = []  # List to store rounds of the tournament
@@ -64,18 +63,26 @@ class Tournament:
         return sorted_players
     
     def load_tournament_by_name(self, tournaments, tournament_name):
-        for tournament in tournaments:
-            if tournament['tournament_name'] == tournament_name:
-                self.view.tournament_loaded(tournament)
-                return Tournament(**tournament)  
+        for data in tournaments:
+            if data['tournament_name'] == tournament_name:
+                self.view.tournament_loaded(data)
+                tournament = Tournament(**data)
+                return tournament
         self.view.tournament_not_found()
         return None
         
     def save_tournaments_to_file(self, tournaments):
         with open('tournaments.json', 'w') as file:
             json.dump(tournaments, file)
-            
+           
     
-    
-            
-    
+    def update_tournament(tournaments, tournament):
+        for idx, t in enumerate(tournaments):
+            print(idx,t)
+            if t['tournament_name'] == tournament.tournament_name:
+                tournaments[idx] = tournament.__dict__
+        
+
+        
+        
+       

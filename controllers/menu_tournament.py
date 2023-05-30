@@ -81,14 +81,17 @@ class LoadTournamentController:
                 return tournaments
         except FileNotFoundError:
             return []
-
-    def load_tournament_by_name(self,tournaments,tournament_name):
-        for tournament in tournaments:
-            if tournament['tournament_name'] == tournament_name:
-                self.view.tournament_loaded(tournament)
+        
+    def load_tournament_by_name(self, tournaments, tournament_name):
+        for data in tournaments:
+            if data['tournament_name'] == tournament_name:
+                self.view.tournament_loaded(data)
+                tournament = Tournament(**data)
                 return tournament
-            else:
-                self.view.tournament_not_found()
+        self.view.tournament_not_found()
+        return None
+
+   
                 
 
             

@@ -55,7 +55,8 @@ class ReportMenuView:
               
     def rounds_matches(self,tournament):
         print()
-
+    
+    
 class TournamentActionsMenu:
     
     
@@ -82,7 +83,9 @@ class TournamentActionsMenu:
         for i in ids:
             players_to_add.append(i)
         return players_to_add
-        
+    
+    def data_error(self):
+        print('Data error')   
 
     
     
