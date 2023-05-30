@@ -63,13 +63,13 @@ class Tournament:
         sorted_players = sorted(all_players, key=lambda x: x['name'])
         return sorted_players
     
-   
-    
-    def load_tournament_by_name(self, tournament_name):
-        tournaments = self.load_tournaments_from_file()
+    def load_tournament_by_name(self, tournaments, tournament_name):
         for tournament in tournaments:
             if tournament['tournament_name'] == tournament_name:
-                return tournament
+                self.view.tournament_loaded(tournament)
+                return Tournament(**tournament)  
+        self.view.tournament_not_found()
+        return None
         
     def save_tournaments_to_file(self, tournaments):
         with open('tournaments.json', 'w') as file:

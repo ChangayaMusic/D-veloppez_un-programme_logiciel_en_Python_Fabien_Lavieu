@@ -7,6 +7,7 @@ from controllers.menu_tournament import AddTournamentController, LoadTournamentC
 from controllers.create_round import CreateRoundController
 from controllers.report_menu import ReportsMenuController
 from controllers.action_menu import ActionMenuController
+from controllers.action_menu import ActionMenuController
 from views.view_tournament import LoadTournamentView
 
 
@@ -30,6 +31,7 @@ class MainMenuController:
         self.add_round_controller = None
         self.load_tournament_controller = None
         self.show_report_controller = None
+        self.tournament = None
 
     def start_loop(self):
         tournament = Tournament()  # Create an instance of the Tournament class
@@ -50,14 +52,15 @@ class MainMenuController:
                     tournaments = self.load_tournament_controller.load_tournaments_from_file()
                     LoadTournamentView.show_tournaments_name_date(tournaments)
                     tournament_name = LoadTournamentView.ask_for_tournament(tournaments)
-                    tournament = self.load_tournament_controller.load_tournament_by_name(tournaments, tournament_name)
-                    action_menu_controller = ActionMenuController()
-                    action_menu_controller.start_loop(tournament)
+                    self.tournament = self.load_tournament_controller.load_tournament_by_name(tournaments, tournament_name)
+                    tournament = self.tournament
+                    action_menu_controller = ActionMenuController(tournament)
+                    action_menu_controller.start_loop()
 
             if option_selected == MainMenuOptions.NEW_ROUND:
                 if not self.add_round_controller:
                     self.add_round_controller = CreateRoundController()
-                self.add_round_controller.new_round(tournament)  # Use the existing tournament instance
+                self.add_round_controller.new_round(tournament)  
             if option_selected == MainMenuOptions.SHOW_REPORTS:
                 if not self.show_report_controller:
                     self.show_report_controller = ReportsMenuController(self.player_manager)

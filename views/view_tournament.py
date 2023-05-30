@@ -95,6 +95,9 @@ class LoadTournamentView:
         
         print(tournaments)
         return input('which tournament do you want to load ?')
+    
+    def tournament_not_found():
+        print("Tournament's not found")
 
     
     
