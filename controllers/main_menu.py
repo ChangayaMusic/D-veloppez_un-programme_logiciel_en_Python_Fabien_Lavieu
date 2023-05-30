@@ -1,6 +1,6 @@
 from enum import IntEnum
 from views.menu import MainMenuView
-from models.player import PlayerManager
+from models.player import PlayerManager, Player
 from models.tournament import Tournament
 from controllers.menu_player import AddPlayerController
 from controllers.menu_tournament import AddTournamentController, LoadTournamentController
@@ -40,7 +40,7 @@ class MainMenuController:
                 if not self.add_player_controller:
                     self.add_player_controller = AddPlayerController(self.player_manager)
                 player = self.add_player_controller.add_new_player()
-                self.tournament.players.append(player)
+                
             elif option_selected == MainMenuOptions.NEW_TOURNAMENT:
                 if not self.add_tournament_controller:
                     self.add_tournament_controller = AddTournamentController()

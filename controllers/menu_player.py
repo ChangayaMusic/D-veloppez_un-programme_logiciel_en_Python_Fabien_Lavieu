@@ -18,7 +18,7 @@ class AddPlayerController:
     
     def validate_birth_date(self, date_string):
         try:
-            birth_date = datetime.strptime(date_string, "%Y-%m-%d")
+            birth_date = datetime.strptime(date_string, "%Y%m%d")
             return birth_date
         except ValueError:
             return None

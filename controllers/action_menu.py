@@ -44,12 +44,16 @@ class ActionMenuController:
                 players = self.player_manager.load_players_from_json()
                 self.view.show_players(players)
                 players_to_add = self.view.get_players_ids(players_to_add=[])
+                found_players =[]
                 for player_id in players_to_add:
-                    player = self.player_manager.find_player_by_identification(player_id, players)
-                    if player:
-                        self.tournament.players.append(player)
+                    players_found = self.player_manager.find_player_by_identification(player_id, players,found_players)
+                    print(found_players)
+                    if found_players:
+                        for player in found_players:
+                            self.tournament.players.append(player)
                 Tournament.update_tournament(tournaments, self.tournament)
-                print(tournaments)
+                print(self.tournament.__dict__)
+                
                 Tournament.save_tournaments_to_file(tournaments)
                 
                 print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")

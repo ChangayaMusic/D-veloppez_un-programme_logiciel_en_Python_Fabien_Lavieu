@@ -2,9 +2,9 @@ import json
 from datetime import datetime, date
 
 class PlayerManager:
-    def __init__(self) -> None:
+    def __init__(self):
         self.players = self.load_players_from_json()
-            
+
     def add(self, player):
         self.players.append(player)
         self.save_players_to_json()
@@ -17,29 +17,28 @@ class PlayerManager:
 
     def load_players_from_json(self):
         players = []
-
-        
-        with open('players.json', 'r') as file:
-            players_data = json.load(file)
-    
-        for player_data in players_data:
-            player = Player(**player_data)
-            players.append(player)
-
+        try:
+            with open('players.json', 'r') as file:
+                players_data = json.load(file)
+                for player_data in players_data:
+                    player = Player(**player_data)
+                    players.append(player)
+        except FileNotFoundError:
+            # Handle the case when players.json doesn't exist
+            players = []
         return players
-    
+
     def save_players_to_json(self):
         players_data = [player.to_dict() for player in self.players]
         with open('players.json', 'w') as file:
-            json.dump(players_data, file)
-            
-    def find_player_by_identification(self, id,players,found_players=[]):
+            json.dump(players_data, file, default=Player.json_encoder)
+
+    def find_player_by_identification(self, id, players, found_players=[]):
         for player in players:
             if player.identification == id:
                 found_players.append(player)
         return found_players
-           
-        
+
 
 class Player:
     def __init__(self, last_name, first_name, birth_date, identification,
@@ -52,16 +51,21 @@ class Player:
         self.rank = rank
         self.opponents = opponents
         self.tournament_score = tournament_score
-    
+
     def __repr__(self) -> str:
-        return f"{ self.first_name } { self.last_name } { self.birth_date } - { self.identification }"
-    
+        return f"{self.first_name} {self.last_name} {self.birth_date} - {self.identification}"
+
     @staticmethod
     def json_encoder(obj):
         if isinstance(obj, (datetime, date)):
             return obj.isoformat()
+        if isinstance(obj, Player):
+            return obj.__dict__
         raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
-    
+
+    def to_json(self):
+        return json.dumps(self, default=self.json_encoder)
+
     def to_dict(self):
         return {
             'last_name': self.last_name,

@@ -23,7 +23,7 @@ class AddPlayerView:
         print(f"Player already in DataBase: { player }")
         
     def input_birth_date(self):
-        return input("Enter player's birth date (YYYY-MM-DD): ")
+        return input("Enter player's birth date (YYYYMMDD): ")
     
     def birth_date_success(self, birth_date):
         print("Valid birth date:", birth_date)
@@ -36,7 +36,8 @@ class AddPlayerView:
         for i, player in enumerate(players):
             print(f"{i+1}. {player}")
             
-   
+    def no_file():
+        print('No Players file available, we will create one for you')
         
         
     
