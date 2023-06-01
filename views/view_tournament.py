@@ -9,12 +9,10 @@ class AddTournamentView:
         return place
         
     def input_tournament_rounds(self, nb_rounds=4):
-        
         nb_rounds = input("How much rounds (default : 4): ")
         return nb_rounds
     
     def input_tournament_description(self):   
-        
         description = input("Enter description: ")
         return description
     
@@ -71,7 +69,6 @@ class LoadTournamentView:
         print("No JSON file have been found. An empty one have been created.")
         
     def show_tournaments_list(self):
-        
         tournaments = self.load_tournaments_from_file()
 
         if tournaments:
@@ -82,7 +79,6 @@ class LoadTournamentView:
             print("No tournaments found.")
             
     def show_tournaments_name_date(tournaments):
-        
         if tournaments:
             for tournament in tournaments:
                 name = tournament["tournament_name"]
@@ -92,7 +88,6 @@ class LoadTournamentView:
             print("No tournaments found.")
             
     def ask_for_tournament(tournaments):
-        
         print(tournaments)
         return input('which tournament do you want to load ?')
     

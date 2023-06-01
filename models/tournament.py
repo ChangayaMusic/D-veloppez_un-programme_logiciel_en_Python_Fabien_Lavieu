@@ -3,6 +3,9 @@ import random
 import json
 import os
 
+class TournamentManager:
+    pass
+
 class Tournament:
     tournaments = []  # List to store tournament objects
     round_list = []  # List to store rounds of the tournament

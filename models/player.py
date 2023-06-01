@@ -16,28 +16,25 @@ class PlayerManager:
         return False
 
     def load_players_from_json(self):
-        players = []
+        self.players = []
         try:
             with open('players.json', 'r') as file:
                 players_data = json.load(file)
                 for player_data in players_data:
                     player = Player(**player_data)
-                    players.append(player)
+                    self.players.append(player)
         except FileNotFoundError:
             # Handle the case when players.json doesn't exist
-            players = []
-        return players
+            self.players = []
+        return self.players
 
     def save_players_to_json(self):
         players_data = [player.to_dict() for player in self.players]
         with open('players.json', 'w') as file:
             json.dump(players_data, file, default=Player.json_encoder)
 
-    def find_player_by_identification(self, id, players, found_players=[]):
-        for player in players:
-            if player.identification == id:
-                found_players.append(player)
-        return found_players
+    def find_player_by_identification(self, identifier):
+        return [player for player in self.players if player.identification == identifier]
 
 
 class Player:

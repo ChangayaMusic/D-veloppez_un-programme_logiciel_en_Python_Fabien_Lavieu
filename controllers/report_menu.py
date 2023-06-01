@@ -1,9 +1,7 @@
 import os
-import json
-from views.menu import ReportMenuView
+from views.menus import ReportMenuView
 from enum import IntEnum
-from models.tournament import Tournament
-from controllers.menu_tournament import LoadTournamentController
+from controllers.add_tournament import LoadTournamentController
 from models.player import PlayerManager
 from views.view_tournament import LoadTournamentView
 
