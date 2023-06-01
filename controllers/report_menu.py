@@ -70,6 +70,6 @@ class ReportsMenuController:
 
             if option_selected == ReportsMenuOptions.TOURNAMENT_ROUNDS_MATCHES:
                 if not self.rounds_matches:
-                    tournament_name = LoadTournamentView.input_tournament_name()
+                    tournament_name = LoadTournamentView.input_tournament()
                     self.rounds_matches = self.load_tournament_controller.load_tournament_by_name(tournament_name)
                 self.view.display_tournament_rounds_matches(self.rounds_matches)

@@ -1,7 +1,7 @@
 from enum import IntEnum
 from views.menus import TournamentActionsMenu
 from models.player import PlayerManager
-from models.tournament import Tournament
+from models.tournament import Tournament, TournamentManager
 from views.view_tournament import LoadTournamentView
 from controllers.add_tournament import LoadTournamentController
 
@@ -17,25 +17,20 @@ class ActionMenuOptions(IntEnum):
 
 
 class ActionMenuController:
-    def __init__(self, player_manager, tournament_manager):
+    def __init__(self):
         self.view = TournamentActionsMenu()
         self.tournament = None
-        self.player_manager = player_manager
-        self.tournament_manager = tournament_manager
-        self.load_tournament_controller = LoadTournamentController()
+        self.player_manager = PlayerManager()
+        self.tournament_manager = TournamentManager()
+        self.tournaments = self.tournament_manager.load_tournaments_from_file()
+        self.tournament_name = LoadTournamentView.ask_for_tournament(self.tournaments)
+        self.tournament =self.tournament.load_tournament_by_name(self.tournament_name)
 
-    def start_loop(self):
-        tournaments = self.load_tournament_controller.load_tournaments_from_file()
+    def start_loop(self,tournaments):
+        
         LoadTournamentView.show_tournaments_name_date(tournaments)
-        tournament_name = LoadTournamentView.ask_for_tournament(tournaments)
-        loaded_data = self.load_tournament_controller.load_tournament_by_name(tournaments, tournament_name)
-
-        if loaded_data:
-            self.tournament = loaded_data
-            print('_data loaded successfully')
-        else:
-            self.view.data_error()
-            return
+        
+        print(self.tournaments)
 
         option_selected = ActionMenuOptions.UNASSIGNED
         while option_selected != ActionMenuOptions.EXIT:
@@ -50,10 +45,8 @@ class ActionMenuController:
                     if players_found:
                         for player in players_found:
                             self.tournament.players.append(player)
-                Tournament.update_tournament(tournaments, self.tournament)
-                print(self.tournament.__dict__)
+                self.tournament_manager.update_tournament(self.tournament)
                 
-                Tournament.save_tournaments_to_file(tournaments)
                 
                 print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
             elif option_selected == ActionMenuOptions.EXIT:

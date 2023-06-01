@@ -20,9 +20,9 @@ class MainMenuOptions(IntEnum):
 class MainMenuController:
     def __init__(self):
         self.player_manager = PlayerManager()
-        self.player_manager.load_players_from_json()
+        self.tournaments= TournamentManager.load_tournaments_from_file(self)
         self.tournament_manager = TournamentManager()
-        # self.tournament_manager.load_tournaments_from_json()
+       
 
         self.add_player_controller = None
         self.add_tournament_controller = None
@@ -47,8 +47,9 @@ class MainMenuController:
                 self.tournament = self.add_tournament_controller.add_new_tournament()
             elif option_selected == MainMenuOptions.LOAD_TOURNAMENT:
                 if not self.load_tournament_controller:
-                    self.load_tournament_controller = LoadTournamentController(self.player_manager, self.tournament_manager)
-                    ActionMenuController.start_loop(self)
+                    self.load_tournament_controller = LoadTournamentController()
+                    tournaments = self.tournaments
+                    ActionMenuController.start_loop(self,tournaments)
             elif option_selected == MainMenuOptions.SHOW_REPORTS:
                 if not self.show_report_controller:
                     self.show_report_controller = ReportsMenuController(self.player_manager)

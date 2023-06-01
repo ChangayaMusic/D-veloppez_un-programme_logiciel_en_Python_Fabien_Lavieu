@@ -1,10 +1,8 @@
 import datetime
-import random
+
 import json
 import os
 
-class TournamentManager:
-    pass
 
 class Tournament:
     tournaments = []  # List to store tournament objects
@@ -29,13 +27,7 @@ class Tournament:
         now = datetime.datetime.now()
         return now.strftime("%Y-%m-%d %H:%M:%S")
    
-    @staticmethod
-    def load_tournaments_from_file():
-        if not os.path.exists('tournaments.json'):
-            return []
-        with open('tournaments.json', 'r') as file:
-            tournaments = json.load(file)
-        return tournaments
+
     
     def to_dict(self):
         return {
@@ -56,29 +48,44 @@ class Tournament:
             return obj.__dict__
         raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
     
-    @staticmethod
+    
+class TournamentManager:
+    def __init__(self) -> None:
+        
+        self.tournament = self.load_tournaments_from_file()
+
+   
     def save_tournaments_to_file(tournaments):
         tournaments_data = [Tournament(**tournament).to_dict() for tournament in tournaments]
         with open('tournaments.json', 'w') as file:
             json.dump(tournaments_data, file)
             
-    @classmethod
+   
     def add_to_database(cls, tournament):
         tournaments = cls.load_tournaments_from_file()
         tournaments.append(tournament.__dict__)
         cls.save_tournaments_to_file(tournaments)
     
-    @staticmethod
-    def update_tournament(tournaments, tournament):
-        for idx, t in enumerate(tournaments):
+    def update_tournament(self, tournament):
+        for idx, t in enumerate(self.tournaments):
             if t['tournament_name'] == tournament.tournament_name:
-                tournaments[idx] = tournament.__dict__
+                self.tournaments[idx] = tournament.__dict__
                 break
     
-    @staticmethod
-    def load_tournament_by_name(tournaments, tournament_name):
+   
+    def load_tournament_by_name(self, tournament_name):
+        tournaments = self.load_tournaments_from_file()
         for data in tournaments:
             if data['tournament_name'] == tournament_name:
                 tournament = Tournament(**data)
                 return tournament
         return None
+    
+    def load_tournaments_from_file(self):
+        if not os.path.exists('tournaments.json'):
+            return []
+        with open('tournaments.json', 'r') as file:
+            tournaments = json.load(file)
+        return tournaments
+    
+    
