@@ -57,9 +57,13 @@ class ActionMenuController:
                 print(self.tournament.players)
             if option_selected == ActionMenuOptions.START_ROUND:
                 self.tournament.start_time = Tournament.get_current_time()
-                round = Round()
+                self.round_manager.create_rounds(self.tournament)
+                print(self.tournament.round_list)
+                self.round_manager.update_tournaments_rounds_file(tournament)
+                for round in self.tournament.round_list:
+                    print(round.name)
+                players = self.tournament.players
                 
-                self.round_manager.create_first_round(tournament)
                 
                 
                 

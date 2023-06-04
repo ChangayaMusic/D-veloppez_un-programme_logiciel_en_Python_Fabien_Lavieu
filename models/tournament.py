@@ -8,7 +8,7 @@ class Tournament:
     tournaments = []  # List to store tournament objects
     round_list = []  # List to store rounds of the tournament
     
-    def __init__(self, tournament_name="", place="", nb_rounds=4, players=[], description='', round_list=None, start_time=None, **kwargs):
+    def __init__(self, tournament_name="", place="", nb_rounds=4, players=[], description='', round_list=[], start_time=None, **kwargs):
         self.tournament_name = tournament_name
         self.place = place
         self.nb_rounds = nb_rounds
@@ -29,20 +29,21 @@ class Tournament:
         return now.strftime("%Y-%m-%d %H:%M:%S")
    
     def to_dict(self):
-            return {
-                'tournament_name': self.tournament_name,
-                'place': self.place,
-                'nb_rounds': self.nb_rounds,
-                'players': [player.to_dict() for player in self.players],  # Include player data
-                'description': self.description,
-                'round_list': self.round_list,
-                'start_time': self.start_time,
-                'end_time': self.end_time
-            }
+        return {
+            'tournament_name': self.tournament_name,
+            'place': self.place,
+            'nb_rounds': self.nb_rounds,
+            'players': [player.to_dict() for player in self.players],  # Include player data
+            'description': self.description,
+            'round_list': self.round_list,
+            'start_time': self.start_time,
+            'end_time': self.end_time
+        }
+            
         
     @staticmethod
     def json_encoder(obj):
-        if isinstance(obj, (datetime, date)):
+        if isinstance(obj, (datetime.datetime, datetime.date)):
             return obj.isoformat()
         if isinstance(obj, Player):
             return obj.__dict__
