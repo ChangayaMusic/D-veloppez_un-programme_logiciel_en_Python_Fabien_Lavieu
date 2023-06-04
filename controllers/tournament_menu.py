@@ -23,14 +23,19 @@ class ActionMenuController:
         self.player_manager = PlayerManager()
         self.tournament_manager = TournamentManager()
         self.tournaments = self.tournament_manager.load_tournaments_from_file()
-        self.tournament_name = LoadTournamentView.ask_for_tournament(self.tournaments)
-        self.tournament =self.tournament.load_tournament_by_name(self.tournament_name)
+        self.tournament_name = None
 
-    def start_loop(self,tournaments):
-        
-        LoadTournamentView.show_tournaments_name_date(tournaments)
-        
-        print(self.tournaments)
+    def start_loop(self):
+        LoadTournamentView.show_tournaments_name_date(self.tournaments)
+        self.tournament_name = LoadTournamentView.ask_for_tournament(self.tournaments)
+        loaded_data = self.tournament_manager.load_tournament_by_name(self.tournament_name)
+
+        if loaded_data:
+            self.tournament = loaded_data
+            print('_data loaded successfully')
+        else:
+            self.view.data_error()
+            return
 
         option_selected = ActionMenuOptions.UNASSIGNED
         while option_selected != ActionMenuOptions.EXIT:
@@ -45,8 +50,10 @@ class ActionMenuController:
                     if players_found:
                         for player in players_found:
                             self.tournament.players.append(player)
-                self.tournament_manager.update_tournament(self.tournament)
-                
+                self.tournament_manager.update_tournament(self)
+                self.view.tournaments_updated()
+                print(self.tournaments)
+
                 
                 print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
             elif option_selected == ActionMenuOptions.EXIT:

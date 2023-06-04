@@ -36,7 +36,7 @@ class Tournament:
             'nb_rounds': self.nb_rounds,
             'players': [player.to_dict() for player in self.players],
             'description': self.description,
-            'round_list': [r.to_dict() for r in self.round_list] if self.round_list else None,
+            'round_list': self.round_list,
             'start_time': self.start_time,
             'end_time': self.end_time
         }
@@ -52,13 +52,13 @@ class Tournament:
 class TournamentManager:
     def __init__(self) -> None:
         
-        self.tournament = self.load_tournaments_from_file()
+        self.tournaments = self.load_tournaments_from_file()
 
    
-    def save_tournaments_to_file(tournaments):
-        tournaments_data = [Tournament(**tournament).to_dict() for tournament in tournaments]
+    def save_tournaments_to_file(self):
+        tournaments_data = [tournament.to_dict() for tournament in self.tournaments]  # Convert tournaments to dictionaries
         with open('tournaments.json', 'w') as file:
-            json.dump(tournaments_data, file)
+            json.dump(tournaments_data, file, default=Tournament.json_encoder)  # Use custom JSON encoder
             
    
     def add_to_database(cls, tournament):
@@ -68,8 +68,9 @@ class TournamentManager:
     
     def update_tournament(self, tournament):
         for idx, t in enumerate(self.tournaments):
-            if t['tournament_name'] == tournament.tournament_name:
-                self.tournaments[idx] = tournament.__dict__
+            if t.tournament_name == tournament.tournament_name:
+                self.tournaments[idx] = tournament
+                self.save_tournaments_to_file()
                 break
     
    

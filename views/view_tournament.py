@@ -93,6 +93,9 @@ class LoadTournamentView:
     
     def tournament_not_found():
         print("Tournament's not found")
+        
+    def tournament_updated():
+        print("Tournament updated")
 
     
     

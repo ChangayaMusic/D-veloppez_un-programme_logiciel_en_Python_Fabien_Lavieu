@@ -79,3 +79,6 @@ class TournamentActionsMenu:
     
     def data_error(self):
         print('Data error')
+        
+    def tournaments_updated(self):
+        print('tournaments updated')
