@@ -12,7 +12,7 @@ class Tournament:
         self.tournament_name = tournament_name
         self.place = place
         self.nb_rounds = nb_rounds
-        self.players = players
+        self.players = []
         self.description = description
         self.round_list = round_list
         self.start_time = start_time if start_time else self.get_current_time()

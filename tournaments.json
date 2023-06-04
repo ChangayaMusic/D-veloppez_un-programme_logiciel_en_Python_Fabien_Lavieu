@@ -18,7 +18,7 @@
         "description": "test",
         "round_list": null,
         "start_time": "2023-06-04 10:52:28",
-        "end_time": "2023-06-04 12:33:55"
+        "end_time": "2023-06-04 12:52:36"
     },
     {
         "tournament_name": "zz",
@@ -28,6 +28,6 @@
         "description": "test2",
         "round_list": null,
         "start_time": "2023-06-04 10:53:06",
-        "end_time": "2023-06-04 12:33:55"
+        "end_time": "2023-06-04 12:52:36"
     }
 ]
