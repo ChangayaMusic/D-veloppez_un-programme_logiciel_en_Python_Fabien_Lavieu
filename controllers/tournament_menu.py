@@ -28,11 +28,12 @@ class ActionMenuController:
     def start_loop(self):
         LoadTournamentView.show_tournaments_name_date(self.tournaments)
         self.tournament_name = LoadTournamentView.ask_for_tournament(self.tournaments)
-        loaded_data = self.tournament_manager.load_tournament_by_name(self.tournament_name)
+        tournament = self.tournament_manager.load_tournament_by_name(self.tournament_name)
 
-        if loaded_data:
-            self.tournament = loaded_data
+        if tournament:
+            self.tournament = tournament
             print('Data loaded successfully')
+            print(self.tournament)
         else:
             self.view.data_error()
             return
@@ -48,8 +49,7 @@ class ActionMenuController:
                     players_found = self.player_manager.find_player_by_identification(player_id)
                     if players_found:
                         for player in players_found:
-                            self.tournament_manager.add_player_to_tournament(self.tournament_name, player)
-
+                           self.tournament_manager.add_player_to_tournament(self.tournament_name, player)
                 self.tournament_manager.update_tournaments_file()
                 self.view.tournaments_updated()
                 print(self.tournament.players)

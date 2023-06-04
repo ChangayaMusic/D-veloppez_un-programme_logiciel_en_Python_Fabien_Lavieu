@@ -53,6 +53,7 @@ class TournamentManager:
         
         self.tournaments = self.load_tournaments_from_file()
         self.tournament_name = ''
+        self.tournament = None
 
    
     def save_tournaments_to_file(self):
@@ -70,6 +71,7 @@ class TournamentManager:
         tournaments = self.load_tournaments_from_file()
         for tournament in tournaments:
             if tournament.tournament_name == tournament_name:
+                self.tournament = tournament  # Assign the tournament to self.tournament
                 return tournament
         return None
         
@@ -87,14 +89,17 @@ class TournamentManager:
                 tournament.players.append(player)
                 self.update_tournaments_file()
                 break
-            else:
-                print("no tournament RRrrrrRRRRRRrRRRrRR")
-                
-                                    
-
-
-            
+                    
     def update_tournaments_file(self):
-        tournaments_data = [tournament.to_dict() for tournament in self.tournaments]  # Serialize tournament objects
+        tournaments_data = []
+        with open('tournaments.json', 'r') as file:
+            tournaments_data = json.load(file)
+        
+        for tournament_data in tournaments_data:
+            if tournament_data['tournament_name'] == self.tournament.tournament_name:
+                # Update the tournament object
+                tournament_data.update(self.tournament.to_dict())
+                break
+        
         with open('tournaments.json', 'w') as file:
             json.dump(tournaments_data, file, indent=4)
