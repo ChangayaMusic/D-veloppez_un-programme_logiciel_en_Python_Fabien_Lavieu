@@ -27,19 +27,18 @@ class Tournament:
         now = datetime.datetime.now()
         return now.strftime("%Y-%m-%d %H:%M:%S")
    
-
-    
     def to_dict(self):
-        return {
-            'tournament_name': self.tournament_name,
-            'place': self.place,
-            'nb_rounds': self.nb_rounds,
-            'players': [player.to_dict() for player in self.players],
-            'description': self.description,
-            'round_list': self.round_list,
-            'start_time': self.start_time,
-            'end_time': self.end_time
-        }
+            return {
+                'tournament_name': self.tournament_name,
+                'place': self.place,
+                'nb_rounds': self.nb_rounds,
+                'players': [player.to_dict() for player in self.players],  # Include player data
+                'description': self.description,
+                'round_list': self.round_list,
+                'start_time': self.start_time,
+                'end_time': self.end_time
+            }
+        
     @staticmethod
     def json_encoder(obj):
         if isinstance(obj, (datetime, date)):
@@ -53,6 +52,7 @@ class TournamentManager:
     def __init__(self) -> None:
         
         self.tournaments = self.load_tournaments_from_file()
+        self.tournament_name = ''
 
    
     def save_tournaments_to_file(self):
@@ -66,27 +66,35 @@ class TournamentManager:
         tournaments.append(tournament.__dict__)
         cls.save_tournaments_to_file(tournaments)
     
-    def update_tournament(self, tournament):
-        for idx, t in enumerate(self.tournaments):
-            if t.tournament_name == tournament.tournament_name:
-                self.tournaments[idx] = tournament
-                self.save_tournaments_to_file()
-                break
-    
-   
     def load_tournament_by_name(self, tournament_name):
         tournaments = self.load_tournaments_from_file()
-        for data in tournaments:
-            if data['tournament_name'] == tournament_name:
-                tournament = Tournament(**data)
+        for tournament in tournaments:
+            if tournament.tournament_name == tournament_name:
                 return tournament
         return None
-    
+        
     def load_tournaments_from_file(self):
         if not os.path.exists('tournaments.json'):
             return []
         with open('tournaments.json', 'r') as file:
-            tournaments = json.load(file)
-        return tournaments
-    
-    
+            tournaments_data = json.load(file)
+        self.tournaments = [Tournament(**data) for data in tournaments_data]
+        return self.tournaments
+
+    def add_player_to_tournament(self, tournament_name, player):
+        for tournament in self.tournaments:
+            if tournament.tournament_name == tournament_name:
+                tournament.players.append(player)
+                self.update_tournaments_file()
+                break
+            else:
+                print("no tournament RRrrrrRRRRRRrRRRrRR")
+                
+                                    
+
+
+            
+    def update_tournaments_file(self):
+        tournaments_data = [tournament.to_dict() for tournament in self.tournaments]  # Serialize tournament objects
+        with open('tournaments.json', 'w') as file:
+            json.dump(tournaments_data, file, indent=4)

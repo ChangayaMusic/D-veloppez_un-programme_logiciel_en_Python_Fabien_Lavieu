@@ -78,15 +78,13 @@ class LoadTournamentView:
         else:
             print("No tournaments found.")
             
+    @staticmethod
     def show_tournaments_name_date(tournaments):
-        if tournaments:
-            for tournament in tournaments:
-                name = tournament["tournament_name"]
-                date = tournament["start_time"]
-                print(f"Tournament Name: {name}, Date: {date}")
-        else:
-            print("No tournaments found.")
-            
+        for tournament in tournaments:
+            name = tournament.tournament_name
+            start_time = tournament.start_time
+            print(f"Tournament: {name}\tStart Time: {start_time}")
+                
     def ask_for_tournament(tournaments):
         print(tournaments)
         return input('which tournament do you want to load ?')
@@ -96,6 +94,7 @@ class LoadTournamentView:
         
     def tournament_updated():
         print("Tournament updated")
+        
 
     
     

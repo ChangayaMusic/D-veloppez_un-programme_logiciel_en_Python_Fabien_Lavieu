@@ -1,1 +1,33 @@
-[{"tournament_name": "aa", "place": "aa", "nb_rounds": 4, "players": [], "description": "test", "round_list": null, "start_time": "2023-06-04 10:52:28"}, {"tournament_name": "zz", "place": "zz", "nb_rounds": 4, "players": [], "description": "test2", "round_list": null, "start_time": "2023-06-04 10:53:06"}]
+[
+    {
+        "tournament_name": "aa",
+        "place": "aa",
+        "nb_rounds": 4,
+        "players": [
+            {
+                "last_name": "d",
+                "first_name": "a",
+                "birth_date": "1989-01-01 00:00:00",
+                "identification": "ad11111",
+                "points": 0,
+                "rank": 0,
+                "opponents": [],
+                "tournament_score": 0
+            }
+        ],
+        "description": "test",
+        "round_list": null,
+        "start_time": "2023-06-04 10:52:28",
+        "end_time": "2023-06-04 12:33:55"
+    },
+    {
+        "tournament_name": "zz",
+        "place": "zz",
+        "nb_rounds": 4,
+        "players": [],
+        "description": "test2",
+        "round_list": null,
+        "start_time": "2023-06-04 10:53:06",
+        "end_time": "2023-06-04 12:33:55"
+    }
+]

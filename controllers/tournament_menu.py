@@ -32,7 +32,7 @@ class ActionMenuController:
 
         if loaded_data:
             self.tournament = loaded_data
-            print('_data loaded successfully')
+            print('Data loaded successfully')
         else:
             self.view.data_error()
             return
@@ -46,15 +46,12 @@ class ActionMenuController:
                 players_to_add = self.view.get_players_ids(players_to_add=[])
                 for player_id in players_to_add:
                     players_found = self.player_manager.find_player_by_identification(player_id)
-                    print(players_found)
                     if players_found:
                         for player in players_found:
-                            self.tournament.players.append(player)
-                self.tournament_manager.update_tournament(self)
-                self.view.tournaments_updated()
-                print(self.tournaments)
+                            self.tournament_manager.add_player_to_tournament(self.tournament_name, player)
 
-                
-                print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+                self.tournament_manager.update_tournaments_file()
+                self.view.tournaments_updated()
+                print(self.tournament.players)
             elif option_selected == ActionMenuOptions.EXIT:
                 pass
