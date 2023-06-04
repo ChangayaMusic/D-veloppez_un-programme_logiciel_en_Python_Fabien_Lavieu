@@ -1,5 +1,6 @@
 import datetime
 from models.tournament import Tournament
+
 import random
 
 class Round:
@@ -18,6 +19,13 @@ class Round:
     def end(self):
         now = datetime.datetime.now()
         self.end_time = now.strftime("%Y-%m-%d %H:%M:%S")
+class RoundManager:
+    
+    def __init__(self):
+        self.rounds = []
+        self.round = round
+        self.round_instance = None
+        
 
     def create_first_round(self, tournament):
         round_players = tournament.players.copy()
@@ -31,7 +39,7 @@ class Round:
             self.name = f"round {self.round_instance}"
             Tournament.round_list.append(self)
             self.round_instance += 1
-            self.start()
+            round.start()
         else:
             self.create_round()
 

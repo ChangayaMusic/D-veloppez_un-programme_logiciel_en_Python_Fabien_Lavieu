@@ -1,16 +1,17 @@
 from enum import IntEnum
 from views.menus import TournamentActionsMenu
 from models.player import PlayerManager
+from models.round   import Round, RoundManager
 from models.tournament import Tournament, TournamentManager
 from views.view_tournament import LoadTournamentView
-from controllers.add_tournament import LoadTournamentController
+
 
 
 class ActionMenuOptions(IntEnum):
     UNASSIGNED = -1
     ADD_PLAYER = 0
-    NEW_TOURNAMENT = 1
-    NEW_ROUND = 2
+    NEW_TOURNAMENT = 2
+    START_ROUND = 1
     LOAD_TOURNAMENT = 3
     SHOW_REPORTS = 4
     EXIT = 5
@@ -22,6 +23,7 @@ class ActionMenuController:
         self.tournament = None
         self.player_manager = PlayerManager()
         self.tournament_manager = TournamentManager()
+        self.round_manager = RoundManager()
         self.tournaments = self.tournament_manager.load_tournaments_from_file()
         self.tournament_name = None
 
@@ -53,5 +55,13 @@ class ActionMenuController:
                 self.tournament_manager.update_tournaments_file()
                 self.view.tournaments_updated()
                 print(self.tournament.players)
+            if option_selected == ActionMenuOptions.START_ROUND:
+                self.tournament.start_time = Tournament.get_current_time()
+                round = Round()
+                
+                self.round_manager.create_first_round(tournament)
+                
+                
+                
             elif option_selected == ActionMenuOptions.EXIT:
                 pass
