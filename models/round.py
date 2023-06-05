@@ -28,10 +28,22 @@ class RoundEncoder(json.JSONEncoder):
                 'matches': obj.matches,
                 'start_time': obj.start_time,
                 'end_time': obj.end_time,
-                
+                'tournament': obj.tournament
             }
             return round_dict
         return super().default(obj)
+
+def round_decoder(obj):
+    if 'name' in obj and 'round_instance' in obj:
+        return Round(
+            name=obj['name'],
+            round_instance=obj['round_instance'],
+            matches=obj['matches'],
+            start_time=obj['start_time'],
+            end_time=obj['end_time'],
+            tournament=obj['tournament']
+        )
+    return obj
 
 class RoundManager:
     def __init__(self):
@@ -46,26 +58,48 @@ class RoundManager:
             tournament.round_list.append(round_instance)
             self.rounds.append(round_instance)
             self.round_instance += 1
-            self.tournament_name = tournament.tournament_name
+            
 
-    def first_round_player(self, players):
+    def first_round_player(self,tournament):
+        players = tournament.players
         random.shuffle(players)
         pairs = zip(*[iter(players)] * 2)
         return list(pairs)
     
-    def update_tournaments_rounds_file(self,tournament):
+    def update_tournaments_rounds_file(self, tournament):
         with open('tournaments.json', 'r') as file:
             data = json.load(file)
-            
-            tournament_list = data
-            for t in tournament_list:
-                if t['tournament_name'] == tournament.tournament_name:
-                    # Update the round_list of the tournament
-                    t['round_list'] = [round_obj for round_obj in tournament.round_list]
-                    break
-            
+
+        tournament_list = data
+        for t in tournament_list:
+            if t['tournament_name'] == tournament.tournament_name:
+                # Update the round_list of the tournament
+                t['round_list'] = [round_obj for round_obj in tournament.round_list]
+                break
+
         with open('tournaments.json', 'w') as file:
             json.dump(data, file, indent=4, cls=RoundEncoder)
 
 
+
+
+    def match_result_data(self,result,match):
+        if result == 1:
+            match.player1.points += 1  
+            match.player2.points += 0  
+            match.player1.opponents.append(match.player2)  
+            return match.player1
+        elif result == 2:
+            match.player1.points += 0  
+            match.player2.points += 1 
+            match.player2.opponents.append(match.player1)  
+            return match.player2
+        elif result == 3:
+            match.player1.points += 0.5  
+            match.player2.points += 0.5  
+            match.player1.opponents.append(match.player2) 
+            match.player2.opponents.append(match.player1) 
+            return None  
+        else:
+            print("invalid result")
             

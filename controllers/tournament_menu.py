@@ -26,6 +26,7 @@ class ActionMenuController:
         self.round_manager = RoundManager()
         self.tournaments = self.tournament_manager.load_tournaments_from_file()
         self.tournament_name = None
+        
 
     def start_loop(self):
         LoadTournamentView.show_tournaments_name_date(self.tournaments)
@@ -60,6 +61,11 @@ class ActionMenuController:
                 self.round_manager.create_rounds(self.tournament)
                 print(self.tournament.round_list)
                 
+
+            
+                            
+                    
+                    
                 self.round_manager.update_tournaments_rounds_file(tournament)
                 for round in self.tournament.round_list:
                     print(round.name)

@@ -82,3 +82,14 @@ class TournamentActionsMenu:
         
     def tournaments_updated(self):
         print('tournaments updated')
+        
+    def get_match_winner(self, match):
+        print(f"Enter the winner for the match between {match.player1} and {match.player2}:")
+        print("1. Player 1")
+        print("2. Player 2")
+        print("3. Draw")
+        return int(input("Select the winner (1-3): "))
+    
+ 
+        
+    
