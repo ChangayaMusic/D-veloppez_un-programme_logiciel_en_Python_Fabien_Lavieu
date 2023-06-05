@@ -46,7 +46,7 @@ class RoundManager:
             tournament.round_list.append(round_instance)
             self.rounds.append(round_instance)
             self.round_instance += 1
-            self.tournament = tournament.tournament_name
+            self.tournament_name = tournament.tournament_name
 
     def first_round_player(self, players):
         random.shuffle(players)
