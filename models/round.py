@@ -28,7 +28,7 @@ class RoundEncoder(json.JSONEncoder):
                 'matches': obj.matches,
                 'start_time': obj.start_time,
                 'end_time': obj.end_time,
-                'tournament': obj.tournament,
+                
             }
             return round_dict
         return super().default(obj)
