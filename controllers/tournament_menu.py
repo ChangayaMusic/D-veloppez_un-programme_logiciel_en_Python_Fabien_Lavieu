@@ -6,15 +6,12 @@ from models.tournament import Tournament, TournamentManager
 from views.view_tournament import LoadTournamentView
 
 
-
 class ActionMenuOptions(IntEnum):
     UNASSIGNED = -1
     ADD_PLAYER = 0
-    NEW_TOURNAMENT = 2
-    START_ROUND = 1
-    LOAD_TOURNAMENT = 3
-    SHOW_REPORTS = 4
-    EXIT = 5
+    START_TOURNAMENT = 1
+    END_TOURNAMENT = 2
+    EXIT = 3
 
 
 class ActionMenuController:
@@ -56,23 +53,16 @@ class ActionMenuController:
                 self.tournament_manager.update_tournaments_file()
                 self.view.tournaments_updated()
                 print(self.tournament.players)
-            if option_selected == ActionMenuOptions.START_ROUND:
+            if option_selected == ActionMenuOptions.START_TOURNAMENT:
                 self.tournament.start_time = Tournament.get_current_time()
                 self.round_manager.create_rounds(self.tournament)
-                print(self.tournament.round_list)
                 
-
-            
-                            
-                    
-                    
                 self.round_manager.update_tournaments_rounds_file(tournament)
-                for round in self.tournament.round_list:
+                print(self.tournament.rounds)
+                for round in self.tournament.rounds:
                     print(round.name)
-                players = self.tournament.players
-                
-                
-                
+                # If first round, create first round matches
+                # Then , create matches with matchmaking (more or less naive)
                 
             elif option_selected == ActionMenuOptions.EXIT:
                 pass

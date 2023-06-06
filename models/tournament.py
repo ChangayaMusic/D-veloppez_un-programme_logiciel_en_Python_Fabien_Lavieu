@@ -5,15 +5,15 @@ import os
 
 class Tournament:
     tournaments = []  # List to store tournament objects
-    round_list = []  # List to store rounds of the tournament
+    rounds = []  # List to store rounds of the tournament
 
-    def __init__(self, tournament_name="", place="", nb_rounds=4, players=[], description='', round_list=[], start_time=None, **kwargs):
+    def __init__(self, tournament_name="", place="", nb_rounds=4, players=[], description='', rounds=[], start_time=None, **kwargs):
         self.tournament_name = tournament_name
         self.place = place
         self.nb_rounds = nb_rounds
         self.players = players
         self.description = description
-        self.round_list = round_list
+        self.rounds = rounds
         self.start_time = start_time if start_time else self.get_current_time()
 
     @staticmethod
@@ -33,7 +33,7 @@ class Tournament:
             'nb_rounds': self.nb_rounds,
             'players': [player.to_dict() for player in self.players],  # Include player data
             'description': self.description,
-            'round_list': self.round_list,
+            'rounds': self.rounds,
             'start_time': self.start_time,
             'end_time': self.end_time
         }

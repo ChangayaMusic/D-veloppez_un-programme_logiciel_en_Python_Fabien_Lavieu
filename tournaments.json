@@ -1,0 +1,36 @@
+[
+    {
+        "tournament_name": "CT",
+        "place": "Paris",
+        "nb_rounds": 4,
+        "players": [],
+        "description": "",
+        "rounds": [
+            {
+                "name": "round1",
+                "matches": [],
+                "start_time": "2023-06-05 16:41:13",
+                "end_time": null
+            },
+            {
+                "name": "round2",
+                "matches": [],
+                "start_time": "2023-06-05 16:41:13",
+                "end_time": null
+            },
+            {
+                "name": "round3",
+                "matches": [],
+                "start_time": "2023-06-05 16:41:13",
+                "end_time": null
+            },
+            {
+                "name": "round4",
+                "matches": [],
+                "start_time": "2023-06-05 16:41:13",
+                "end_time": null
+            }
+        ],
+        "start_time": "2023-06-05 16:41:08"
+    }
+]

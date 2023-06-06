@@ -57,12 +57,10 @@ class TournamentActionsMenu:
     def select_action(self):
         return input(
                 "Please choose an option to continue:\n"
-                "0: Add player(s) to a Tournament\n"
-                "1: Start a Round\n"
-                "2: Start Round's matches \n"
-                "3: ??????\n"
-                "4: End Tournament\n"
-                "5: Main Menu\n"
+                "0: Add player(s) to a tournament\n"
+                "1: Start tournament\n"
+                "2: End tournament\n"
+                "3: Return to menu\n"
                 "Your choice ? "
             )
       
@@ -81,7 +79,7 @@ class TournamentActionsMenu:
         print('Data error')
         
     def tournaments_updated(self):
-        print('tournaments updated')
+        print('Tournaments updated')
         
     def get_match_winner(self, match):
         print(f"Enter the winner for the match between {match.player1} and {match.player2}:")
