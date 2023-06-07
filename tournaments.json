@@ -1,36 +1,78 @@
 [
     {
-        "tournament_name": "CT",
-        "place": "Paris",
+        "tournament_name": "1",
+        "place": "1",
         "nb_rounds": 4,
-        "players": [],
-        "description": "",
+        "players": [
+            {
+                "last_name": "chg",
+                "first_name": "fab",
+                "birth_date": "1954-01-01 00:00:00",
+                "identification": "fg11111",
+                "points": 0,
+                "rank": 0,
+                "opponents": [],
+                "tournament_score": 0
+            },
+            {
+                "last_name": "doudou",
+                "first_name": "ophe",
+                "birth_date": "1954-11-11 00:00:00",
+                "identification": "op11111",
+                "points": 0,
+                "rank": 0,
+                "opponents": [],
+                "tournament_score": 0
+            },
+            {
+                "last_name": "lamalisse",
+                "first_name": "rico",
+                "birth_date": "1954-11-11 00:00:00",
+                "identification": "er11111",
+                "points": 0,
+                "rank": 0,
+                "opponents": [],
+                "tournament_score": 0
+            },
+            {
+                "last_name": "boubou",
+                "first_name": "ali",
+                "birth_date": "1999-11-11 00:00:00",
+                "identification": "az11111",
+                "points": 0,
+                "rank": 0,
+                "opponents": [],
+                "tournament_score": 0
+            }
+        ],
+        "description": "1",
         "rounds": [
             {
                 "name": "round1",
                 "matches": [],
-                "start_time": "2023-06-05 16:41:13",
+                "start_time": "2023-06-07 17:37:32",
                 "end_time": null
             },
             {
                 "name": "round2",
                 "matches": [],
-                "start_time": "2023-06-05 16:41:13",
+                "start_time": "2023-06-07 17:37:32",
                 "end_time": null
             },
             {
                 "name": "round3",
                 "matches": [],
-                "start_time": "2023-06-05 16:41:13",
+                "start_time": "2023-06-07 17:37:32",
                 "end_time": null
             },
             {
                 "name": "round4",
                 "matches": [],
-                "start_time": "2023-06-05 16:41:13",
+                "start_time": "2023-06-07 17:37:32",
                 "end_time": null
             }
         ],
-        "start_time": "2023-06-05 16:41:08"
+        "start_time": "2023-06-07 16:04:24",
+        "end_time": "2023-06-07 16:06:45"
     }
 ]

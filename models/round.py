@@ -21,8 +21,10 @@ class Round:
         players = tournament.players
         random.shuffle(players)
         pairs = zip(*[iter(players)] * 2)
-        return list(pairs)
+        for pair in pairs:
+            self.matches.append(pair)
 
+       
 class RoundEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Round):
@@ -56,7 +58,7 @@ class RoundManager:
             round_instance = Round(name=round_name)
             round_instance.start()
             tournament.rounds.append(round_instance)
-            self.rounds.append(round_instance)
+            
             self.round_instance += 1
 
     
@@ -74,7 +76,7 @@ class RoundManager:
         with open('tournaments.json', 'w') as file:
             json.dump(data, file, indent=4, cls=RoundEncoder)
 
-    def match_result_data(self, result, match):
+    def set_winner(self, result, match):
         if result == 1:
             match.player1.points += 1  
             match.player2.points += 0  
@@ -92,5 +94,7 @@ class RoundManager:
             match.player2.opponents.append(match.player1) 
             return None  
         else:
-            print("invalid result")
+            print("Invalid input. Please choose 1, 2, or 3.")   
             
+    def sort_by_points(self, players):
+        return sorted(players, key=lambda player: player.points, reverse=True)                

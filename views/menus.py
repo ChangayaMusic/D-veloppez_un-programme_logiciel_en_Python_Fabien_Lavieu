@@ -81,12 +81,17 @@ class TournamentActionsMenu:
     def tournaments_updated(self):
         print('Tournaments updated')
         
-    def get_match_winner(self, match):
-        print(f"Enter the winner for the match between {match.player1} and {match.player2}:")
-        print("1. Player 1")
-        print("2. Player 2")
+    def get_match_winner(self, player1, player2):
+        
+        print(f"Match: {player1['first_name']} {player1['last_name']} vs {player2['first_name']} {player2['last_name']}")
+        print(f"1. {player1['first_name']} {player1['last_name']}")
+        print(f"2. {player2['first_name']} {player2['last_name']}")
         print("3. Draw")
         return int(input("Select the winner (1-3): "))
+
+    def wrong_result():
+        print('Wrong inpout : only 1,2,3 are allowed')
+        
     
  
         

@@ -58,9 +58,36 @@ class ActionMenuController:
                 self.round_manager.create_rounds(self.tournament)
                 
                 self.round_manager.update_tournaments_rounds_file(tournament)
-                print(self.tournament.rounds)
+                #print(self.tournament.rounds)
                 for round in self.tournament.rounds:
                     print(round.name)
+                    if "1" in round.name:
+                        round.get_first_round_players(self.tournament)
+                        print(round.matches)
+                        for match in round.matches:
+                            player1, player2 = match
+                         
+                            result = self.view.get_match_winner(player1, player2)
+                            
+                            self.round_manager.set_winner(match, result)
+                            
+                            players = self.round_manager.sort_by_points(self)
+                            for player in players:
+                                print(f"Player: {player.first_name} {player.last_name}, Points: {player.points}, Rank: {player.rank}")
+                    else:
+                        round.matchmaking_by_points()
+                                
+                        
+            
+                    
+                
+                            
+                                                  
+                            
+                            
+                            
+                    
+                    
                 # If first round, create first round matches
                 # Then , create matches with matchmaking (more or less naive)
                 
