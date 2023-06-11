@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+from models.round import Round
 
 
 class Tournament:
@@ -69,9 +70,15 @@ class TournamentManager:
             return []
         with open('tournaments.json', 'r') as file:
             tournaments_data = json.load(file)
-        self.tournaments = [Tournament(**data) for data in tournaments_data]
-        return self.tournaments
 
+        self.tournaments = []
+        for data in tournaments_data:
+            tournament = Tournament(**data)
+            tournament.rounds = [Round(**round_data) for round_data in data['rounds']]
+            self.tournaments.append(tournament)
+
+        return self.tournaments
+    
     def add_player_to_tournament(self, tournament_name, player):
         for tournament in self.tournaments:
             if tournament.tournament_name == tournament_name:
@@ -79,16 +86,51 @@ class TournamentManager:
                 self.update_tournaments_file()
                 break
 
+            else:
+                print("no tournament RRrrrrRRRRRRrRRRrRR")
+    def update_tournament_players(tournament_players):
+    # Load player data from players.json
+        with open('players.json', 'r') as file:
+            players = json.load(file)
+
+        # Iterate through tournament players and update their information
+        for tournament_player in tournament_players:
+            for player in players:
+                if player['identification'] == tournament_player['identification']:
+                    player['opponents'] = tournament_player['opponents']  # Update oppenonents
+                    player['total_points'] = player['total_points'] + tournament_player['points']  # Update total points
+                    
+                    break
+
+            with open('players.json', 'w') as file:
+                json.dump(players, file, indent=4)
+                
+    def add_player_to_tournament(self, tournament_name, player):
+        for tournament in self.tournaments:
+            if tournament.tournament_name == tournament_name:
+                tournament.players.append(player)
+                self.update_tournaments_file()
+                break
+
+            else:
+                print("no tournament RRrrrrRRRRRRrRRRrRR")   
     def update_tournaments_file(self):
         tournaments_data = []
         with open('tournaments.json', 'r') as file:
             tournaments_data = json.load(file)
 
-        for tournament_data in tournaments_data:
-            if tournament_data['tournament_name'] == self.tournament.tournament_name:
+        for data in tournaments_data:
+            if data['tournament_name'] == self.tournament.tournament_name:
                 # Update the tournament object
-                tournament_data.update(self.tournament.to_dict())
+                data.update(self.tournament.to_dict())
                 break
 
         with open('tournaments.json', 'w') as file:
             json.dump(tournaments_data, file, indent=4, default=Tournament.json_encoder)
+
+    def update_rank_by_points(tournament):
+        tournament.players.sort(key=lambda player: player['points'], reverse=True)  # Sort players by points in descending order
+        
+        for i, player in enumerate(tournament.players, start=1):
+            player['rank'] = i  # Update the rank of each player based on their position
+            print(f"{player['last_name'],player['points']}",player['rank'])

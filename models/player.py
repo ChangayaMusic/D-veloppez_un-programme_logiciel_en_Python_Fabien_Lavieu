@@ -36,10 +36,23 @@ class PlayerManager:
     def find_player_by_identification(self, identifier):
         return [player for player in self.players if player.identification == identifier]
 
+    def add_points_to_player(player_id, points):
+        # Load player data from player.json
+        with open('players.json', 'r') as file:
+            players = json.load(file)
 
+        # Find the player by ID and update the points
+        for player in players:
+            if player['identification'] == player_id:
+                player['points'] += points
+                break
+
+        # Save the updated player data back to player.json
+        with open('players.json', 'w') as file:
+            json.dump(players, file, indent=4)
 class Player:
     def __init__(self, last_name, first_name, birth_date, identification,
-                 points=0, opponents=[], tournament_score=0, rank=0):
+                 points=0, opponents=[], total_points=0, rank=0):
         self.last_name = last_name
         self.first_name = first_name
         self.birth_date = birth_date
@@ -47,7 +60,7 @@ class Player:
         self.points = points
         self.rank = rank
         self.opponents = opponents
-        self.tournament_score = tournament_score
+        self.total_points = total_points
 
     def __repr__(self) -> str:
         return f"{self.first_name} {self.last_name} {self.birth_date} - {self.identification}"
@@ -72,5 +85,5 @@ class Player:
             'points': self.points,
             'rank': self.rank,
             'opponents': self.opponents,
-            'tournament_score': self.tournament_score
+            'total_points': self.total_points
         }

@@ -8,6 +8,8 @@ class Round:
         self.matches = matches
         self.start_time = start_time
         self.end_time = end_time
+        self.matches = []
+        
 
     def start(self):
         now = datetime.datetime.now()
@@ -23,7 +25,15 @@ class Round:
         pairs = zip(*[iter(players)] * 2)
         for pair in pairs:
             self.matches.append(pair)
-
+            
+    def matchmaking_by_points(self, players):
+        for i in range(0, len(players), 2):
+            if i + 1 < len(players):
+                pair = (players[i], players[i + 1])
+            else:
+                pair = (players[i], None)  # Handle odd number of players
+            self.matches.append(pair)
+        return self.matches
        
 class RoundEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -70,31 +80,32 @@ class RoundManager:
         for t in tournament_list:
             if t['tournament_name'] == tournament.tournament_name:
                 # Update the rounds of the tournament
-                t['rounds'] = [round_obj for round_obj in tournament.rounds]
+                t['rounds'] = [round_obj.__dict__ for round_obj in tournament.rounds]
+                
+                t['players'] = tournament.players  # Update the players
                 break
-
         with open('tournaments.json', 'w') as file:
-            json.dump(data, file, indent=4, cls=RoundEncoder)
+            json.dump(data, file, indent=4)
 
-    def set_winner(self, result, match):
+
+    def set_score(self, result, player1 , player2):
         if result == 1:
-            match.player1.points += 1  
-            match.player2.points += 0  
-            match.player1.opponents.append(match.player2)  
-            return match.player1
+            player1['points'] += 1
+            player1['opponents'].append(player2)
         elif result == 2:
-            match.player1.points += 0  
-            match.player2.points += 1 
-            match.player2.opponents.append(match.player1)  
-            return match.player2
+            player2['points'] += 1
+            player2['opponents'].append(player1)
         elif result == 3:
-            match.player1.points += 0.5  
-            match.player2.points += 0.5  
-            match.player1.opponents.append(match.player2) 
-            match.player2.opponents.append(match.player1) 
-            return None  
+            player1['points'] += 0.5
+            player2['points'] += 0.5
+            player1['opponents'].append(player2)
+            player2['opponents'].append(player1)
+            return player1, player2
+            
         else:
             print("Invalid input. Please choose 1, 2, or 3.")   
             
     def sort_by_points(self, players):
-        return sorted(players, key=lambda player: player.points, reverse=True)                
+        return sorted(players, key=lambda player: player['points'], reverse=True)
+    
+  

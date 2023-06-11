@@ -15,7 +15,7 @@ class ActionMenuOptions(IntEnum):
 
 
 class ActionMenuController:
-    def __init__(self):
+    def __init__(self,):
         self.view = TournamentActionsMenu()
         self.tournament = None
         self.player_manager = PlayerManager()
@@ -57,29 +57,50 @@ class ActionMenuController:
                 self.tournament.start_time = Tournament.get_current_time()
                 self.round_manager.create_rounds(self.tournament)
                 
-                self.round_manager.update_tournaments_rounds_file(tournament)
+                
                 #print(self.tournament.rounds)
                 for round in self.tournament.rounds:
-                    print(round.name)
                     if "1" in round.name:
                         round.get_first_round_players(self.tournament)
                         print(round.matches)
                         for match in round.matches:
-                            player1, player2 = match
-                         
+                            
+                            player1 = match[0]
+                            print(player1)
+                            player2 = match[1]
+                            print(player2)
                             result = self.view.get_match_winner(player1, player2)
-                            
-                            self.round_manager.set_winner(match, result)
-                            
-                            players = self.round_manager.sort_by_points(self)
-                            for player in players:
-                                print(f"Player: {player.first_name} {player.last_name}, Points: {player.points}, Rank: {player.rank}")
+                            self.round_manager.set_score(result,player1,player2)
+                           
+                        
+                        tournament.players = self.round_manager.sort_by_points(self.tournament.players)
+                        for player in tournament.players:
+                            print(f"Player: {player['first_name']} {player['last_name']}, Points: {player['points']}, Rank: {player['rank']}")
                     else:
-                        round.matchmaking_by_points()
+                        
+                        print(round.name)
+                        players = tournament.players
+                        self.matches = round.matchmaking_by_points(players)
+                        print(round.matches)
+                        for match in self.matches:
+                            
+                            player1 = match[0]
+                            print(player1)
+                            player2 = match[1]
+                            print(player2)
+                            result = self.view.get_match_winner(player1, player2)
+                            self.round_manager.set_score(result,player1,player2)
+                        tournament.players = self.round_manager.sort_by_points(self.tournament.players)
+                        for player in tournament.players:
+                            print(f"Player: {player['first_name']} {player['last_name']}, Points: {player['points']}, Rank: {player['rank']}")        
+                     
+                    
                                 
                         
-            
-                    
+                TournamentManager.update_rank_by_points(tournament)
+                self.round_manager.update_tournaments_rounds_file(tournament)
+                
+                self.player_manager.add_points_to_player(tournament)     
                 
                             
                                                   
