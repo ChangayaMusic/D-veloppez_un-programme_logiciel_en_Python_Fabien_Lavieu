@@ -1,6 +1,7 @@
 import datetime
 import json
 import random
+import copy
 
 class Round:
     def __init__(self, name="", matches=[], start_time=None, end_time=None):
@@ -79,14 +80,22 @@ class RoundManager:
         tournament_list = data
         for t in tournament_list:
             if t['tournament_name'] == tournament.tournament_name:
+                # Create a deep copy of the tournament object to break circular reference
+                updated_tournament = copy.deepcopy(tournament)
+
                 # Update the rounds of the tournament
-                t['rounds'] = [round_obj.__dict__ for round_obj in tournament.rounds]
+                updated_tournament.rounds = [round_obj.__dict__ for round_obj in tournament.rounds]
                 
-                t['players'] = tournament.players  # Update the players
+                # Update the players
+                updated_tournament.players = copy.deepcopy(tournament.players)
+
+                # Update the tournament object in the data list
+                t.update(updated_tournament.__dict__)
                 break
+
         with open('tournaments.json', 'w') as file:
             json.dump(data, file, indent=4)
-
+    
 
     def set_score(self, result, player1 , player2):
         if result == 1:

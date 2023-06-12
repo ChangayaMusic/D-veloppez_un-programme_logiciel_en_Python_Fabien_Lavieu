@@ -91,16 +91,21 @@ class ActionMenuController:
                             result = self.view.get_match_winner(player1, player2)
                             self.round_manager.set_score(result,player1,player2)
                         tournament.players = self.round_manager.sort_by_points(self.tournament.players)
-                        for player in tournament.players:
-                            print(f"Player: {player['first_name']} {player['last_name']}, Points: {player['points']}, Rank: {player['rank']}")        
+                       
                      
                     
                                 
                         
-                TournamentManager.update_rank_by_points(tournament)
                 self.round_manager.update_tournaments_rounds_file(tournament)
+                print("--------------------------------")
+                print(self.tournament.players)
                 
-                self.player_manager.add_points_to_player(tournament)     
+                print("--------------------------------")
+                print(self.tournament)
+                print("--------------------------------")
+                
+                
+                self.tournament_manager.update_players_points()  
                 
                             
                                                   

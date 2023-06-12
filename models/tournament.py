@@ -128,9 +128,18 @@ class TournamentManager:
         with open('tournaments.json', 'w') as file:
             json.dump(tournaments_data, file, indent=4, default=Tournament.json_encoder)
 
-    def update_rank_by_points(tournament):
-        tournament.players.sort(key=lambda player: player['points'], reverse=True)  # Sort players by points in descending order
+    def update_players_points(self):
+        with open('players.json', 'r') as players_file:
+            players_data = json.load(players_file)
+        for t_player in self.tournament.players:
+            for player in players_data:
+                if t_player['identification']== player['identification']:
+                    player['total_points'] += t_player['points']
+                    player['opponents'] = t_player['opponents']
+        players_data.sort(key=lambda player: player['points'], reverse=True)  # Sort players by points in descending order
         
-        for i, player in enumerate(tournament.players, start=1):
+        for i, player in enumerate(players_data, start=1):
             player['rank'] = i  # Update the rank of each player based on their position
-            print(f"{player['last_name'],player['points']}",player['rank'])
+                 
+        with open('players.json', 'w') as players_file:
+            json.dump(players_data, players_file, indent=4)    

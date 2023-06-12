@@ -36,20 +36,12 @@ class PlayerManager:
     def find_player_by_identification(self, identifier):
         return [player for player in self.players if player.identification == identifier]
 
-    def add_points_to_player(player_id, points):
-        # Load player data from player.json
-        with open('players.json', 'r') as file:
-            players = json.load(file)
-
-        # Find the player by ID and update the points
-        for player in players:
-            if player['identification'] == player_id:
-                player['points'] += points
-                break
-
-        # Save the updated player data back to player.json
-        with open('players.json', 'w') as file:
-            json.dump(players, file, indent=4)
+    
+         
+        
+   
+    
+    
 class Player:
     def __init__(self, last_name, first_name, birth_date, identification,
                  points=0, opponents=[], total_points=0, rank=0):
