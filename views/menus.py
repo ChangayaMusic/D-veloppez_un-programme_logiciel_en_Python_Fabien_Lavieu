@@ -40,17 +40,44 @@ class ReportMenuView:
         print(Tournament.tournament_dict)
         
     def display_all_players(self, players):
+        print("**********************")
+        print("All players by name : ")
+        print("**********************")
         sorted_players = sorted(players, key=lambda player: player.last_name)
         for player in sorted_players:
             print(player)
-            
-    @staticmethod
-    def show_tournaments_list(tournament_list):
-        for tournament in tournament_list:
-            print(tournament)
+            print("**********************")
+    @staticmethod        
+    def display_tournament_players():
+        print("**********************")
+        print("Tournament's players by name : ")
+        print("**********************")
+        
+    def player_infos(player):
+        print(f"Name:{player['first_name']} {player['last_name']} Id: {player['identification']} Points: {player['points']}")
+        ("**************************************")
+        
               
-    def rounds_matches(self,tournament):
-        print()
+    @staticmethod
+    def show_tournaments_list(tournaments):
+        print("**************************************")
+        print('Tournament name || Start time || place')
+        print("**************************************")
+        for tournament in tournaments:
+            print(f"{tournament.tournament_name}||{tournament.start_time}|| {tournament.place}||")
+            print("**************************************")
+    def show_tournaments(tournament):
+        print("**************************************")
+        print('Tournament name || Start time || place')
+        print("**************************************")  
+        print(f"{tournament.tournament_name}||{tournament.start_time}|| {tournament.place}||")         
+    
+    def rounds(round):
+        print(f"{round.name}")
+    
+    def matches(player1,player2):
+        print(f"Match: {player1.name}{player1.points}  vs {player1.name} {player2.points}")
+            
     
     
 class TournamentActionsMenu:
