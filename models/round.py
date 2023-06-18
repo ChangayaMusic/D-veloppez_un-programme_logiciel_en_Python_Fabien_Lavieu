@@ -100,15 +100,17 @@ class RoundManager:
     def set_score(self, result, player1 , player2):
         if result == 1:
             player1['points'] += 1
-            player1['opponents'].append(player2)
+            player1['opponents'].append(player2['identification'])
+            player2['opponents'].append(player1['identification'])
         elif result == 2:
             player2['points'] += 1
-            player2['opponents'].append(player1)
+            player1['opponents'].append(player2['identification'])
+            player2['opponents'].append(player1['identification'])
         elif result == 3:
             player1['points'] += 0.5
             player2['points'] += 0.5
-            player1['opponents'].append(player2)
-            player2['opponents'].append(player1)
+            player1['opponents'].append(player2['identification'])
+            player2['opponents'].append(player1['identification'])
             return player1, player2
             
         else:
