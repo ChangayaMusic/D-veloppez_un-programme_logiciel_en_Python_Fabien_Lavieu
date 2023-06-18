@@ -109,7 +109,7 @@ class TournamentManager:
         for tournament in self.tournaments:
             if tournament.tournament_name == tournament_name:
                 tournament.players.append(player)
-                self.update_tournaments_file()
+
                 break
 
             else:
