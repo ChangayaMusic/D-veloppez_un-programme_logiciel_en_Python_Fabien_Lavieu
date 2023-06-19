@@ -1,10 +1,10 @@
-import os
+import json
 from views.menus import ReportMenuView
 from enum import IntEnum
 from controllers.add_tournament import LoadTournamentController
 from models.player import PlayerManager
 from views.view_tournament import LoadTournamentView
-from models.tournament import TournamentManager
+from models.tournament import TournamentManager, Tournament
 from views.view_tournament import AddTournamentView
 class ReportsMenuOptions(IntEnum):
     UNASSIGNED = -1
@@ -67,29 +67,33 @@ class ReportsMenuController:
                         players = sorted(players_to_sort, key=lambda player: player["last_name"])
                         for player in players:
                             ReportMenuView.player_infos(player)
-                            
-                            
-                        
+
 
             if option_selected == ReportsMenuOptions.TOURNAMENT_ROUNDS_MATCHES:
-                ReportMenuView.display_tournament_players()
-                players_to_sort = []
-                tournaments = self.tournament_manager.load_tournaments_from_file(self)
-                self.view.show_tournaments_list(tournaments)
-                tournament_name = AddTournamentView.input_tournament_name(self)
-                for tournament in tournaments:
-                    if tournament.tournament_name == tournament_name:
-                        self.tournament = tournament
-                        for round in tournament.rounds:
-                            ReportMenuView.rounds(round)
-                            for match in round.matches:
-                                player1 = match[0]  # First player in the match
-                                player2 = match[1]  # Second player in the match
-                                ReportMenuView.matches(player1, player2)
-                                
-                            
-                            
-                            
-                            
-                            
-                            
+                with open('tournaments.json') as file:
+                    data = json.load(file)
+                    tournament_name = AddTournamentView.input_tournament_name(self)
+                    tournament_found = False
+
+                    for tournament in data:
+                        if tournament_name == tournament['tournament_name']:
+                            print("Tournament:", tournament['tournament_name'])
+                            tournament_found = True
+
+                            # Iterate over the rounds in the tournament
+                            for round_data in tournament["rounds"]:
+                                round_name = round_data["name"]
+                                print("Round:", round_name)
+
+                                # Iterate over the matches in the round
+                                for match in round_data["matches"]:
+                                    print("Match:")
+                                    for p in match:
+                                        print(p['identification'], p['first_name'], p['last_name'])
+
+
+
+                    if not tournament_found:
+                        print("No tournament found")
+
+
