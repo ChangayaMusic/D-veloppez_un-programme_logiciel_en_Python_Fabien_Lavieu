@@ -57,8 +57,10 @@ class AddPlayerController:
             except ValueError:
                 self.view.display_birth_date_error()
 
-        player = Player(last_name=last_name, first_name=first_name,
-                        birth_date=birth_date, identification=identification)
+        player = Player(last_name=last_name,
+                        first_name=first_name,
+                        birth_date=birth_date,
+                        identification=identification)
         self.add_player_to_db(player)
 
         return player

@@ -1,6 +1,5 @@
 import json
 from views.view_tournament import AddTournamentView, LoadTournamentView
-from views.view_player import AddPlayerView
 from models.tournament import Tournament
 from models.player import PlayerManager
 from views.menus import TournamentActionsMenu

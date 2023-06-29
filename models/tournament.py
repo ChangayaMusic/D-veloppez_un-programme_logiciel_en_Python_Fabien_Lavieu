@@ -30,7 +30,7 @@ class Tournament:
     @end_time.setter
     def end_time(self, value):
         self._end_time = value
-        
+
     def to_dict(self):
         return {
             'tournament_name': self.tournament_name,

@@ -1,4 +1,3 @@
-# from views.viewplayer import ViewPlayer
 from models.tournament import Tournament
 
 
@@ -34,18 +33,20 @@ class ReportMenuView:
     def display_players(self):
         print(Tournament.players)
 
-    def tournaments_names(self, tournament):
+    def tournaments_names(self):
         for name in Tournament.tournament_names:
             print(name)
 
-    def names_and_dates(self, tournament):
+    def names_and_dates(self):
         print(Tournament.tournament_dict)
 
     def display_all_players(self, players):
         print("**********************")
         print("All players by name : ")
         print("**********************")
-        sorted_players = sorted(players, key=lambda player: player.last_name)
+        sorted_players = sorted(players,
+                                key=lambda
+                                player: player.last_name)
         for player in sorted_players:
             print(player)
             print("**********************")
@@ -83,7 +84,7 @@ class ReportMenuView:
 
     def matches(player1, player2):
         print(
-            f"Match: {player1.name}{player1.points}  vs {player1.name} {player2.points}")
+            f"Match: {player1.name}{player1.points} vs {player1.name} {player2.points}")
 
 
 class TournamentActionsMenu:
@@ -124,4 +125,4 @@ class TournamentActionsMenu:
         return int(input("Select the winner (1-3): "))
 
     def wrong_result():
-        print('Wrong inpout : only 1,2,3 are allowed')
+        print('Wrong input : only 1,2,3 are allowed')
