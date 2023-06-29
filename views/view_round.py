@@ -1,6 +1,3 @@
-from models.round import Round
-
-
 class RoundView:
 
     def round_created(self):

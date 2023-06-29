@@ -4,7 +4,7 @@ from enum import IntEnum
 from controllers.add_tournament import LoadTournamentController
 from models.player import PlayerManager
 from views.view_tournament import LoadTournamentView
-from models.tournament import TournamentManager, Tournament
+from models.tournament import TournamentManager
 from views.view_tournament import AddTournamentView
 
 
@@ -68,7 +68,8 @@ class ReportsMenuController:
                         for player in tournament.players:
                             players_to_sort.append(player)
                         players = sorted(
-                            players_to_sort, key=lambda player: player["last_name"])
+                            players_to_sort,
+                            key=lambda player: player["last_name"])
                         for player in players:
                             ReportMenuView.player_infos(player)
 

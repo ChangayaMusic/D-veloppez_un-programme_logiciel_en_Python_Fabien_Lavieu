@@ -1,8 +1,6 @@
 import json
 from views.view_tournament import AddTournamentView, LoadTournamentView
 from models.tournament import Tournament
-from models.player import PlayerManager
-from views.menus import TournamentActionsMenu
 
 
 class AddTournamentController:
@@ -28,7 +26,6 @@ class AddTournamentController:
     def add_new_tournament(self):
         tournament_name = None
         place = None
-        nb_rounds = 4
         description = None
         while not tournament_name:
             tournament_name = self.view.input_tournament_name()
@@ -38,7 +35,9 @@ class AddTournamentController:
         description = self.validate_descriptions(description, response="yes")
 
         tournament = Tournament(
-            tournament_name=tournament_name, place=place, description=description)
+            tournament_name=tournament_name,
+            place=place,
+            description=description)
 
         if not self.check_if_tournament_exists(tournament):
             self.add_tournament_to_db(tournament)

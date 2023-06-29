@@ -1,7 +1,7 @@
 from enum import IntEnum
 from views.menus import TournamentActionsMenu
 from models.player import PlayerManager
-from models.round import Round, RoundManager
+from models.round import RoundManager
 from models.tournament import Tournament, TournamentManager
 from views.view_tournament import LoadTournamentView
 

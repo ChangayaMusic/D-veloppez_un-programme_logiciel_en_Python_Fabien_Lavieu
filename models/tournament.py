@@ -8,7 +8,16 @@ class Tournament:
     tournaments = []  # List to store tournament objects
     rounds = []  # List to store rounds of the tournament
 
-    def __init__(self, tournament_name="", place="", nb_rounds=4, players=[], description='', rounds=[], start_time=None, end_time=None, **kwargs):
+    def __init__(self,
+                 tournament_name="",
+                 place="",
+                 nb_rounds=4,
+                 players=[],
+                 description='',
+                 rounds=[],
+                 start_time=None,
+                 end_time=None,
+                 **kwargs):
         self.tournament_name = tournament_name
         self.place = place
         self.nb_rounds = nb_rounds
@@ -16,7 +25,7 @@ class Tournament:
         self.description = description
         self.rounds = rounds
         self.start_time = start_time if start_time else self.get_current_time()
-        self._end_time = end_time if end_time else None  # Private attribute for end_time
+        self._end_time = end_time if end_time else None
 
     @staticmethod
     def get_current_time():
@@ -71,7 +80,7 @@ class TournamentManager:
         tournaments = self.load_tournaments_from_file()
         for tournament in tournaments:
             if tournament.tournament_name == tournament_name:
-                self.tournament = tournament  # Assign the tournament to self.tournament
+                self.tournament = tournament
                 return tournament
         return None
 
@@ -111,18 +120,12 @@ class TournamentManager:
                     # Update opponents
                     player['opponents'] = tournament_player['opponents']
                     player['total_points'] = player['total_points'] + \
-                        tournament_player['points']  # Update total points
+                        tournament_player['points']
 
                     break
 
             with open('players.json', 'w') as file:
                 json.dump(players, file, indent=4)
-
-    def add_player_to_tournament(self, tournament_name, player):
-        for tournament in self.tournaments:
-            if tournament.tournament_name == tournament_name:
-                tournament.players.append(player)
-                break
 
     def update_tournaments_file(self):
         tournaments_data = []

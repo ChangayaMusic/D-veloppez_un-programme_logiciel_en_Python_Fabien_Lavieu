@@ -51,7 +51,7 @@ class AddTournamentView:
 
 class LoadTournamentView:
     def input_tournament(self):
-        return input(f"Enter the name of the tournament: ")
+        return input("Enter the name of the tournament: ")
 
     def tournament_is_not_in_db(self):
         print("The tournament is not found in the database.")

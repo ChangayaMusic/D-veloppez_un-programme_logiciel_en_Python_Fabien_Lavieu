@@ -48,7 +48,6 @@ class MainMenuController:
             elif option_selected == MainMenuOptions.LOAD_TOURNAMENT:
                 if not self.load_tournament_controller:
                     self.load_tournament_controller = LoadTournamentController()
-                tournaments = self.tournaments
                 action_menu_controller = ActionMenuController()
                 action_menu_controller.start_loop()
             elif option_selected == MainMenuOptions.SHOW_REPORTS:
