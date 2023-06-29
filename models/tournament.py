@@ -16,7 +16,7 @@ class Tournament:
         self.description = description
         self.rounds = rounds
         self.start_time = start_time if start_time else self.get_current_time()
-
+        
     @staticmethod
     def get_current_time():
         now = datetime.datetime.now()

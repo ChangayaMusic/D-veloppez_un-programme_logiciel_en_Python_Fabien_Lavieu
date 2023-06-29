@@ -26,13 +26,14 @@ class ActionMenuController:
 
     def start_loop(self):
         LoadTournamentView.show_tournaments_name_date(self.tournaments)
-        self.tournament_name = LoadTournamentView.ask_for_tournament(self.tournaments)
-        tournament = self.tournament_manager.load_tournament_by_name(self.tournament_name)
+        self.tournament_name = LoadTournamentView.ask_for_tournament(
+            self.tournaments)
+        tournament = self.tournament_manager.load_tournament_by_name(
+            self.tournament_name)
 
         if tournament:
             self.tournament = tournament
-            print('Data loaded successfully')
-            print(self.tournament)
+            LoadTournamentView.tournament_loaded(self)
         else:
             self.view.data_error()
             return
@@ -45,10 +46,12 @@ class ActionMenuController:
                 self.view.show_players(self.player_manager.players)
                 players_to_add = self.view.get_players_ids(players_to_add=[])
                 for player_id in players_to_add:
-                    players_found = self.player_manager.find_player_by_identification(player_id)
+                    players_found = self.player_manager.find_player_by_identification(
+                        player_id)
                     if players_found:
                         for player in players_found:
-                            self.tournament_manager.add_player_to_tournament(self.tournament_name, player)
+                            self.tournament_manager.add_player_to_tournament(
+                                self.tournament_name, player)
                 self.tournament_manager.update_tournaments_file()
                 self.view.tournaments_updated()
                 print(self.tournament.players)
@@ -58,8 +61,6 @@ class ActionMenuController:
                 self.tournament.start_time = Tournament.get_current_time()
                 self.round_manager.create_rounds(self.tournament)
 
-
-                # print(self.tournament.rounds)
                 for round in self.tournament.rounds:
                     if "1" in round.name:
                         round.get_first_round_players(self.tournament)
@@ -69,13 +70,16 @@ class ActionMenuController:
                             print(player1)
                             player2 = match[1]
                             print(player2)
-                            result = self.view.get_match_winner(player1, player2)
+                            result = self.view.get_match_winner(
+                                player1, player2)
                             if result not in [1, 2, 3]:
                                 self.view.wrong-result()
                             else:
-                                self.round_manager.set_score(result, player1, player2)
+                                self.round_manager.set_score(
+                                    result, player1, player2)
 
-                        tournament.players = self.round_manager.sort_by_points(self.tournament.players)
+                        tournament.players = self.round_manager.sort_by_points(
+                            self.tournament.players)
                         for player in tournament.players:
                             print(
                                 f"Player: {player['first_name']} {player['last_name']}, Points: {player['points']}, Rank: {player['rank']}")
@@ -90,22 +94,17 @@ class ActionMenuController:
                             print(player1)
                             player2 = match[1]
                             print(player2)
-                            result = self.view.get_match_winner(player1, player2)
-                            self.round_manager.set_score(result, player1, player2)
-                        tournament.players = self.round_manager.sort_by_points(self.tournament.players)
+                            result = self.view.get_match_winner(
+                                player1, player2)
+                            self.round_manager.set_score(
+                                result, player1, player2)
+                        tournament.players = self.round_manager.sort_by_points(
+                            self.tournament.players)
 
                 self.round_manager.update_tournaments_rounds_file(tournament)
-                print("--------------------------------")
-                print(self.tournament.players)
-
-                print("--------------------------------")
-                print(self.tournament)
-                print("--------------------------------")
-
                 self.tournament_manager.update_players_points()
-
-                # If first round, create first round matches
-                # Then , create matches with matchmaking (more or less naive)
-
+            if option_selected == ActionMenuOptions.END_TOURNAMENT:
+                tournament.end_time = Tournament.end_time
+                 
             elif option_selected == ActionMenuOptions.EXIT:
                 pass

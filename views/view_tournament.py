@@ -55,8 +55,8 @@ class LoadTournamentView:
     def tournament_is_not_in_db(self):
         print("The tournament is not found in the database.")
         
-    def tournament_loaded(self,tournament):
-        print(f"Tournament loaded from DataBase: { tournament }")
+    def tournament_loaded(self):
+        print("Tournament loaded from DataBase")
     
     def ask_for_file(self):
         file_name = input("Please enter file name: ")
@@ -86,7 +86,7 @@ class LoadTournamentView:
             print(f"Tournament: {name}\tStart Time: {start_time}")
                 
     def ask_for_tournament(tournaments):
-        print(tournaments)
+        
         return input('Which tournament do you want to load ? ')
     
     def tournament_not_found():
