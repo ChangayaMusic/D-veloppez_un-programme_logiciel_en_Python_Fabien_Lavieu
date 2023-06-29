@@ -1,6 +1,7 @@
 # from views.viewplayer import ViewPlayer
 from models.tournament import Tournament
 
+
 class MainMenuView:
     def display_welcome(self):
         print("Welcome in the chess tournament manager !")
@@ -15,6 +16,7 @@ class MainMenuView:
             "4: Exit\n"
             "Your choice ? "
         )
+
 
 class ReportMenuView:
     def select_report(self):
@@ -31,14 +33,14 @@ class ReportMenuView:
 
     def display_players(self):
         print(Tournament.players)
-    
-    def tournaments_names(self,tournament):
+
+    def tournaments_names(self, tournament):
         for name in Tournament.tournament_names:
             print(name)
-        
-    def names_and_dates(self,tournament):
+
+    def names_and_dates(self, tournament):
         print(Tournament.tournament_dict)
-        
+
     def display_all_players(self, players):
         print("**********************")
         print("All players by name : ")
@@ -47,70 +49,75 @@ class ReportMenuView:
         for player in sorted_players:
             print(player)
             print("**********************")
-    @staticmethod        
+
+    @staticmethod
     def display_tournament_players():
         print("**********************")
         print("Tournament's players by name : ")
         print("**********************")
-        
+
     def player_infos(player):
-        print(f"Name:{player['first_name']} {player['last_name']} Id: {player['identification']} Points: {player['points']}")
+        print(
+            f"Name:{player['first_name']} {player['last_name']} Id: {player['identification']} Points: {player['points']}")
         ("**************************************")
-        
-              
+
     @staticmethod
     def show_tournaments_list(tournaments):
         print("**************************************")
         print('Tournament name || Start time || place')
         print("**************************************")
         for tournament in tournaments:
-            print(f"{tournament.tournament_name}||{tournament.start_time}|| {tournament.place}||")
+            print(
+                f"{tournament.tournament_name}||{tournament.start_time}|| {tournament.place}||")
             print("**************************************")
+
     def show_tournaments(tournament):
         print("**************************************")
         print('Tournament name || Start time || place')
-        print("**************************************")  
-        print(f"{tournament.tournament_name}||{tournament.start_time}|| {tournament.place}||")         
-    
+        print("**************************************")
+        print(
+            f"{tournament.tournament_name}||{tournament.start_time}|| {tournament.place}||")
+
     def rounds(round):
         print(f"{round.name}")
-    
-    def matches(player1,player2):
-        print(f"Match: {player1.name}{player1.points}  vs {player1.name} {player2.points}")
-            
-    
-    
+
+    def matches(player1, player2):
+        print(
+            f"Match: {player1.name}{player1.points}  vs {player1.name} {player2.points}")
+
+
 class TournamentActionsMenu:
     def select_action(self):
         return input(
-                "Please choose an option to continue:\n"
-                "0: Add player(s) to a tournament\n"
-                "1: Start tournament\n"
-                "2: End tournament\n"
-                "3: Return to menu\n"
-                "Your choice ? "
-            )
-      
-    def show_players(self,players):
+            "Please choose an option to continue:\n"
+            "0: Add player(s) to a tournament\n"
+            "1: Start tournament\n"
+            "2: End tournament\n"
+            "3: Return to menu\n"
+            "Your choice ? "
+        )
+
+    def show_players(self, players):
         for player in players:
-            print(player.last_name,player.identification)
+            print(player.last_name, player.identification)
             pass
-    
-    def get_players_ids(self,players_to_add):
+
+    def get_players_ids(self, players_to_add):
         ids = input("Enter player's ids (separated by commas): ").split(",")
         for i in ids:
             players_to_add.append(i)
         return players_to_add
-    
+
     def data_error(self):
         print('Data error')
-        
+
     def tournaments_updated(self):
         print('Tournaments updated')
-        
+
     def get_match_winner(self, player1, player2):
-        
-        print(f"Match: {player1['first_name']} {player1['last_name']} vs {player2['first_name']} {player2['last_name']}")
+
+        print(
+            f"Match: {player1['first_name']} {player1['last_name']} vs {player2['first_name']} {player2['last_name']}")
         print(f"1. {player1['first_name']} {player1['last_name']}")
         print(f"2. {player2['first_name']} {player2['last_name']}")
         print("3. Draw")
@@ -118,8 +125,3 @@ class TournamentActionsMenu:
 
     def wrong_result():
         print('Wrong inpout : only 1,2,3 are allowed')
-        
-    
- 
-        
-    

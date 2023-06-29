@@ -1,6 +1,7 @@
 import json
 from datetime import datetime, date
 
+
 class PlayerManager:
     def __init__(self):
         self.players = self.load_players_from_json()
@@ -36,12 +37,7 @@ class PlayerManager:
     def find_player_by_identification(self, identifier):
         return [player for player in self.players if player.identification == identifier]
 
-    
-         
-        
-   
-    
-    
+
 class Player:
     def __init__(self, last_name, first_name, birth_date, identification,
                  points=0, opponents=[], total_points=0, rank=0):
@@ -63,7 +59,8 @@ class Player:
             return obj.isoformat()
         if isinstance(obj, Player):
             return obj.__dict__
-        raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
+        raise TypeError(
+            f"Object of type {obj.__class__.__name__} is not JSON serializable")
 
     def to_json(self):
         return json.dumps(self, default=self.json_encoder)

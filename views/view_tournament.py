@@ -95,6 +95,13 @@ class LoadTournamentView:
     def tournament_updated():
         print("Tournament updated")
         
+    def tournament_ended(self):
+        print(f"Tournament ended : {self.tournament.end_time}")
+    
+    def all_players():
+        print("all players by name")
+        
+               
 
     
     

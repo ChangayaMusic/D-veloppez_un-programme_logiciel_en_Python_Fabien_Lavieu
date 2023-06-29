@@ -38,7 +38,8 @@ class MainMenuController:
             option_selected = int(self.view.select_option())
             if option_selected == MainMenuOptions.NEW_PLAYER:
                 if not self.add_player_controller:
-                    self.add_player_controller = AddPlayerController(self.player_manager)
+                    self.add_player_controller = AddPlayerController(
+                        self.player_manager)
                 _ = self.add_player_controller.add_new_player()
             elif option_selected == MainMenuOptions.NEW_TOURNAMENT:
                 if not self.add_tournament_controller:
@@ -52,5 +53,6 @@ class MainMenuController:
                 action_menu_controller.start_loop()
             elif option_selected == MainMenuOptions.SHOW_REPORTS:
                 if not self.show_report_controller:
-                    self.show_report_controller = ReportsMenuController(self.player_manager)
+                    self.show_report_controller = ReportsMenuController(
+                        self.player_manager)
                 self.show_report_controller.start_loop()

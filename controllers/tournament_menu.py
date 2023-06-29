@@ -103,8 +103,10 @@ class ActionMenuController:
 
                 self.round_manager.update_tournaments_rounds_file(tournament)
                 self.tournament_manager.update_players_points()
+
             if option_selected == ActionMenuOptions.END_TOURNAMENT:
-                tournament.end_time = Tournament.end_time
-                 
+                self.tournament.end_time = Tournament.get_current_time()
+                LoadTournamentView.tournament_ended(self)
+
             elif option_selected == ActionMenuOptions.EXIT:
                 pass
